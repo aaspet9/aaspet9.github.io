@@ -75,8 +75,35 @@
 
     .serial-badge { background: #e0f2fe; color: #0284c7; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 4px; border: 1px solid #bae6fd; font-family: monospace; }
 
+    /* Highlighted Product Code Banner inside Enlarged Detail Modal */
+    .detail-code-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #fef08a 0%, #fde047 100%);
+      color: #0f172a;
+      border: 2px solid #eab308;
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.45);
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      max-width: calc(100% - 38px);
+    }
+    .detail-code-value {
+      background: #0f172a;
+      color: #fde047;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      letter-spacing: 0.4px;
+    }
+
     .slider-wrapper { position: relative; width: 100%; height: 145px; border-radius: 8px; overflow: hidden; margin-bottom: 6px; background: #fdfdfd; cursor: pointer; }
     .product-media { width: 100%; height: 145px; object-fit: cover; border-radius: 8px; transition: transform 0.2s; }
+    .img-count-pill { position: absolute; top: 6px; right: 6px; background: rgba(15, 23, 42, 0.78); color: #ffffff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 10px; z-index: 3; }
     .slider-dots { position: absolute; bottom: 6px; left: 0; right: 0; display: flex; justify-content: center; gap: 4px; z-index: 3; }
     .dot { width: 6px; height: 6px; background: rgba(255,255,255,0.6); border-radius: 50%; }
     .dot.active { background: #ff4747; width: 12px; border-radius: 4px; }
@@ -84,27 +111,56 @@
     .product-title { font-size: 11px; font-weight: 600; color: #222222; margin-bottom: 4px; line-height: 1.3; height: 28px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
     .product-price { font-size: 13px; font-weight: 800; color: #ff4747; margin-bottom: 6px; }
 
-    .btn-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; width: 100%; }
-    .buy-btn { background: linear-gradient(135deg, #ff4747 0%, #e60000 100%); color: #ffffff; text-decoration: none; text-align: center; padding: 7px 2px; border-radius: 14px; font-weight: bold; font-size: 10px; width: 100%; display: flex; align-items: center; justify-content: center; }
-    .download-btn { background: #0891b2; color: #ffffff; border: none; padding: 7px 2px; border-radius: 14px; font-weight: bold; font-size: 10px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 2px; }
-    .share-btn { background: #2563eb; color: #ffffff; border: none; padding: 7px 2px; border-radius: 14px; font-weight: bold; font-size: 10px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 2px; }
-    .proof-btn { background: #16a34a; color: #ffffff; border: none; padding: 7px 2px; border-radius: 14px; font-weight: bold; font-size: 10px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 2px; }
+    /* Single Click Review Button in Grid */
+    .click-review-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: none;
+      padding: 9px 6px;
+      border-radius: 16px;
+      font-weight: 800;
+      font-size: 11px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(37, 99, 235, 0.28);
+      transition: transform 0.12s ease;
+    }
+    .click-review-btn:active { transform: scale(0.97); }
+
+    /* Enlarged Single Product Detail Modal */
+    .detail-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.82); display: none; justify-content: center; align-items: center; z-index: 2500; padding: 12px; overflow-y: auto; }
+    .detail-modal-box { background: #ffffff; width: 100%; max-width: 460px; border-radius: 16px; padding: 16px; max-height: 92vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .detail-main-img-wrap { position: relative; width: 100%; height: 260px; border-radius: 12px; overflow: hidden; background: #f8fafc; border: 1px solid #e2e8f0; margin-bottom: 10px; cursor: zoom-in; }
+    .detail-main-img { width: 100%; height: 100%; object-fit: contain; }
+    .detail-thumbs-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+    .detail-thumb-img { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; border: 2px solid #cbd5e1; cursor: pointer; }
+    .detail-thumb-img.active-thumb { border-color: #2563eb; }
+    .detail-title { font-size: 15px; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 6px; }
+    .detail-price { font-size: 18px; font-weight: 900; color: #ff4747; margin-bottom: 12px; }
+
+    .btn-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; }
+    .buy-btn { background: linear-gradient(135deg, #ff4747 0%, #e60000 100%); color: #ffffff; text-decoration: none; text-align: center; padding: 10px 6px; border-radius: 12px; font-weight: bold; font-size: 12px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .download-btn { background: #0891b2; color: #ffffff; border: none; padding: 10px 6px; border-radius: 12px; font-weight: bold; font-size: 12px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .share-btn { background: #2563eb; color: #ffffff; border: none; padding: 10px 6px; border-radius: 12px; font-weight: bold; font-size: 12px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .proof-btn { background: #16a34a; color: #ffffff; border: none; padding: 10px 6px; border-radius: 12px; font-weight: bold; font-size: 12px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; }
     
     .btn-approved { background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; border: 1px solid #34d399 !important; font-weight: bold !important; cursor: not-allowed !important; opacity: 1 !important; pointer-events: none; }
     .btn-pending { background: #f59e0b !important; color: #ffffff !important; cursor: not-allowed !important; opacity: 0.9 !important; pointer-events: none; }
     .proof-btn:disabled, .share-btn:disabled { opacity: 0.85; cursor: not-allowed; pointer-events: none; }
 
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 15px; }
     .modal-box { background: #ffffff; width: 100%; max-width: 440px; border-radius: 14px; padding: 18px; max-height: 90vh; overflow-y: auto; position: relative; }
-    .close-modal { position: absolute; background: #e2e8f0; border: none; font-size: 16px; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-weight: bold; top: 12px; }
+    .close-modal { position: absolute; background: #e2e8f0; border: none; font-size: 16px; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-weight: bold; top: 12px; z-index: 10; }
     html[dir="rtl"] .close-modal { left: 15px; }
     html[dir="ltr"] .close-modal { right: 15px; }
     .modal-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 10px; font-size: 13px; outline: none; }
 
-    .image-zoom-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 4000; padding: 10px; }
-    .image-zoom-box { position: relative; max-width: 95%; max-height: 90vh; text-align: center; }
-    .image-zoom-box img { width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; border: 2px solid #ffffff; }
-    .close-zoom-btn { position: absolute; top: -35px; right: 0; background: #ff4747; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; }
+    .image-zoom-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); display: none; justify-content: center; align-items: center; z-index: 4000; padding: 12px; overflow-y: auto; }
+    .image-zoom-box { position: relative; width: 100%; max-width: 460px; max-height: 92vh; overflow-y: auto; text-align: center; background: #0f172a; padding: 12px; border-radius: 14px; border: 1px solid #334155; }
+    .zoom-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #ffffff; font-size: 12px; font-weight: bold; }
+    .close-zoom-btn { background: #ff4747; color: white; border: none; font-size: 15px; font-weight: bold; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .zoom-all-images-grid { display: flex; flex-direction: column; gap: 10px; }
+    .zoom-gallery-img { width: 100%; max-height: 62vh; object-fit: contain; border-radius: 10px; border: 2px solid #ffffff; background: #000000; }
 
     .file-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 6px; border-radius: 8px; }
     .file-btn-sm { flex: 1; text-align: left; background: #eff6ff; border: 1px dashed #2563eb; padding: 6px 8px; border-radius: 6px; font-size: 11px; font-weight: 500; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -168,6 +224,11 @@
     <p style="text-align: center; grid-column: span 2; padding: 20px; color: #2563eb; font-weight:bold;">Loading deals... ⏳</p>
   </div>
 
+  <!-- Enlarged Single Product Detail Modal (Opens when "Click Review" is pressed) -->
+  <div class="detail-modal-overlay" id="productDetailModal" onclick="if(event.target===this) closeProductDetailModal()">
+    <div class="detail-modal-box" id="productDetailContent"></div>
+  </div>
+
   <!-- Single Social-Bar Style Floating AdSense Banner at Bottom -->
   <div class="adsense-social-sticky" id="stickySocialAdBox">
     <button class="close-sticky-ad" onclick="document.getElementById('stickySocialAdBox').style.display='none'" title="Close Ad">✕</button>
@@ -180,11 +241,14 @@
     </script>
   </div>
 
-  <!-- Zoom View Image Modal -->
-  <div class="image-zoom-overlay" id="zoomModal">
+  <!-- Multi-Image Zoom Gallery Modal -->
+  <div class="image-zoom-overlay" id="zoomModal" onclick="if(event.target===this) closeZoomModal()">
     <div class="image-zoom-box">
-      <button class="close-zoom-btn" onclick="closeZoomModal()">✕</button>
-      <img id="zoomModalImg" src="" alt="Full Preview">
+      <div class="zoom-header-bar">
+        <span id="zoomGalleryCount">🖼️ Product Images</span>
+        <button class="close-zoom-btn" onclick="closeZoomModal()">✕</button>
+      </div>
+      <div class="zoom-all-images-grid" id="zoomAllImagesContainer"></div>
     </div>
   </div>
 
@@ -218,35 +282,35 @@
       
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg1').click()"><span id="pTxt1">▶️ 1. YouTube Screenshot</span><input type="file" id="pImg1" accept="image/*" style="display:none;" onchange="handleProofImage(event, 1)"></div>
-        <button class="sample-btn" onclick="openZoomModal('https://i.ibb.co/xtV64Lm0/124083.jpg')">👁️ Sample</button>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/xtV64Lm0/124083.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn1" onclick="verifySingleImage(1)" disabled>Verify 🔍</button>
         <span id="badge1" style="display:none;" class="status-badge"></span>
       </div>
 
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg2').click()"><span id="pTxt2">📘 2. Facebook Screenshot</span><input type="file" id="pImg2" accept="image/*" style="display:none;" onchange="handleProofImage(event, 2)"></div>
-        <button class="sample-btn" onclick="openZoomModal('https://i.ibb.co/qFn6XtV0/124084.jpg')">👁️ Sample</button>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/qFn6XtV0/124084.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn2" onclick="verifySingleImage(2)" disabled>Verify 🔍</button>
         <span id="badge2" style="display:none;" class="status-badge"></span>
       </div>
 
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg3').click()"><span id="pTxt3">💬 3. WhatsApp Group/Channel</span><input type="file" id="pImg3" accept="image/*" style="display:none;" onchange="handleProofImage(event, 3)"></div>
-        <button class="sample-btn" onclick="openZoomModal('https://i.ibb.co/Q3G1NbY9/124103.jpg')">👁️ Sample</button>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/Q3G1NbY9/124103.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn3" onclick="verifySingleImage(3)" disabled>Verify 🔍</button>
         <span id="badge3" style="display:none;" class="status-badge"></span>
       </div>
 
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg4').click()"><span id="pTxt4">📸 4. Instagram Screenshot</span><input type="file" id="pImg4" accept="image/*" style="display:none;" onchange="handleProofImage(event, 4)"></div>
-        <button class="sample-btn" onclick="openZoomModal('https://i.ibb.co/4Z7pwPBC/124104.jpg')">👁️ Sample</button>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/4Z7pwPBC/124104.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn4" onclick="verifySingleImage(4)" disabled>Verify 🔍</button>
         <span id="badge4" style="display:none;" class="status-badge"></span>
       </div>
 
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg5').click()"><span id="pTxt5">🎵 5. TikTok Screenshot</span><input type="file" id="pImg5" accept="image/*" style="display:none;" onchange="handleProofImage(event, 5)"></div>
-        <button class="sample-btn" onclick="openZoomModal('https://i.ibb.co/VpQ49JWT/124108.jpg')">👁️ Sample</button>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/VpQ49JWT/124108.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn5" onclick="verifySingleImage(5)" disabled>Verify 🔍</button>
         <span id="badge5" style="display:none;" class="status-badge"></span>
       </div>
@@ -264,8 +328,8 @@
       <input type="text" id="uPrice" class="modal-input" placeholder="Price (e.g. SAR 50)">
       <input type="text" id="uLink" class="modal-input" placeholder="Affiliate Link" dir="ltr">
       <div style="border: 2px dashed #2563eb; background: #eff6ff; padding: 12px; text-align: center; border-radius: 8px; cursor: pointer; margin-bottom: 10px;" onclick="document.getElementById('uImgInput').click()">
-        <span id="uFileText" style="font-size:12px; font-weight:bold; color:#2563eb;">📁 Select Image</span>
-        <input type="file" id="uImgInput" accept="image/*" style="display:none;" onchange="handleUserImgSelect(event)">
+        <span id="uFileText" style="font-size:12px; font-weight:bold; color:#2563eb;">📁 Select Images (1 to 4)</span>
+        <input type="file" id="uImgInput" accept="image/*" multiple style="display:none;" onchange="handleUserImgSelect(event)">
       </div>
       <div id="uLoader" style="display:none; text-align:center; font-size:12px; color:#2563eb; font-weight:bold; margin-bottom:8px;">Compressing & Uploading... ⚡⏳</div>
       <button style="width:100%; background:#2563eb; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="submitUserDeal()">Submit Deal 🚀</button>
@@ -314,7 +378,7 @@
     let verifiedStates = { 1: false, 2: false, 3: false, 4: false, 5: false };
     let uploadedUrls = { 1: null, 2: null, 3: null, 4: null, 5: null };
 
-    let currentUserImg = null;
+    let currentUserImgs = [];
     let selectedProdKey = "";
     let selectedProdTitle = "";
     let selectedProdLink = "";
@@ -380,11 +444,6 @@
       });
     }
 
-    /* =====================================================================
-       VISUAL UI & ICON FINGERPRINT DETECTOR (PIXEL COLOR + LAYOUT ENGINE)
-       Detects each app's authentic UI layout, icon zones, and color signature
-       without relying solely on user-typed words.
-    ===================================================================== */
     function analyzeAppVisualSignature(file) {
       return new Promise((resolve) => {
         const reader = new FileReader();
@@ -401,14 +460,14 @@
 
             const data = ctx.getImageData(0, 0, w, h).data;
 
-            let greenBubblePixels = 0; // WhatsApp Dark Green Bubble (#005c4b / #144d37)
-            let darkBgPixels = 0;      // Dark Mode (YouTube / TikTok / Instagram / WA Dark)
-            let whiteBgPixels = 0;     // Light Mode (Facebook / YouTube Light)
-            let blueButtonPixels = 0;  // Facebook "Boost" / Instagram "Boost post" Blue (#1877f2 / #0095f6)
+            let greenBubblePixels = 0;
+            let darkBgPixels = 0;
+            let whiteBgPixels = 0;
+            let blueButtonPixels = 0;
             let topBarDark = 0;
             let bottomBarDark = 0;
             let bottomBarWhite = 0;
-            let rightIconColumnBright = 0; // TikTok right-side vertical icons (Heart/Comment/Save)
+            let rightIconColumnBright = 0;
 
             for (let y = 0; y < h; y++) {
               for (let x = 0; x < w; x++) {
@@ -417,30 +476,21 @@
                 const g = data[idx + 1];
                 const b = data[idx + 2];
 
-                // WhatsApp signature dark green chat bubble
                 if (g > r + 18 && g > b + 10 && r < 45 && g > 55 && g < 130) {
                   greenBubblePixels++;
                 }
-
-                // Pure dark / black UI
                 if (r < 38 && g < 38 && b < 42) {
                   darkBgPixels++;
                   if (y < 30) topBarDark++;
                   if (y > 205) bottomBarDark++;
                 }
-
-                // Pure white / light gray UI (Facebook feed)
                 if (r > 235 && g > 235 && b > 235) {
                   whiteBgPixels++;
                   if (y > 205) bottomBarWhite++;
                 }
-
-                // Social Blue accent (Boost button / FB blue)
                 if (b > 180 && b > r + 70 && g > 80 && g < 185) {
                   blueButtonPixels++;
                 }
-
-                // TikTok right vertical action icons zone (x: 102..116, y: 110..195)
                 if (x >= 102 && x <= 116 && y >= 110 && y <= 195) {
                   if (r > 210 && g > 210 && b > 210) {
                     rightIconColumnBright++;
@@ -479,42 +529,50 @@
       en: { 
         title: "🛍️ Saudi Best Deals & Discounts", pub: "➕ Publish Deals", pro: "📌 Promote Deal", buy: "🛒 Buy", search: "🔍 Search product or Serial Number...", 
         shared: "✅ 5 Platforms Approved", share: "🔗 Share 5 Platforms", pending: "⏳ Pending Approval", sendProof: "📸 Submit Proof", save: "📥 Save",
+        clickReview: "🔍 Click Review",
+        productCodeLabel: "This is product code:",
         guideTitle: "📖 Sharing Instructions (How to post):",
         ptsLabel: "🪙 Approved Shares:", balLabel: "💰 Total Balance (5 Platforms = 25 PKR):",
         modalTitle: "📸 Upload 5 Platform Screenshots", modalSub: "Post the same deal on all 5 platforms and select 5 images (Earn 25 PKR)",
         p1: "▶️ 1. YouTube Screenshot", p2: "📘 2. Facebook Screenshot", p3: "💬 3. WhatsApp Group/Channel", p4: "📸 4. Instagram Screenshot", p5: "🎵 5. TikTok Screenshot",
         btnSubmit: "Submit All 5 Screenshots 🚀", btnVerify: "Verify 🔍",
-        alertTitle: "Cancel Upload Proof?", alertMsg: "Do you really want to cancel this sharing task? All currently selected and verified images will be lost."
+        alertMsg: "Do you really want to cancel this sharing task? All currently selected and verified images will be lost."
       },
       ur: { 
         title: "🛍️ سعودی بیسٹ ڈیلز & ڈسکاؤنٹس", pub: "➕ اپنی ڈیلز شائع کریں", pro: "📌 ڈیل پروموٹ کروائیں", buy: "🛒 خریدیں", search: "🔍 پروڈکٹ کا نام یا سیریل نمبر سرچ کریں...", 
         shared: "✅ 5 پلیٹ فارم منظور", share: "🔗 شیئر ڈیل", pending: "⏳ منتظر", sendProof: "📸 سکرین شاٹ", save: "📥 سیو",
+        clickReview: "🔍 کلک ریویو",
+        productCodeLabel: "This is product code:",
         guideTitle: "📖 شیئرنگ کی ہدایات (کیسے پوسٹ کریں):",
         ptsLabel: "🪙 منظور شدہ شیئرز:", balLabel: "💰 کل رقم (5 پلیٹ فارم = 25 روپے):",
         modalTitle: "📸 5 پلیٹ فارم کے سکرین شاٹس اپلوڈ کریں", modalSub: "ہر پلیٹ فارم پر وہی پروڈکٹ پوسٹ کر کے 5 تصاویر سلیکٹ کریں (کل رقم: 25 روپے)",
         p1: "▶️ 1. یوٹیوب سکرین شاٹ", p2: "📘 2. فیس بک سکرین شاٹ", p3: "💬 3. واٹس ایپ گروپ یا چینل", p4: "📸 4. انسٹاگرام سکرین شاٹ", p5: "🎵 5. ٹک ٹاک سکرین شاٹ",
         btnSubmit: "تمام 5 سکرین شاٹ جمع کریں 🚀", btnVerify: "تصدیق کریں 🔍",
-        alertTitle: "ٹاسک منسوخ کریں؟", alertMsg: "کیا آپ واقعی اس ٹاسک کو منسوخ کرنا چاہتے ہیں؟ آپ کے سلیکٹ کردہ اور تصدیق شدہ سکرین شاٹس ضائع ہو جائیں گے۔"
+        alertMsg: "کیا آپ واقعی اس ٹاسک کو منسوخ کرنا چاہتے ہیں؟ آپ کے سلیکٹ کردہ اور تصدیق شدہ سکرین شاٹس ضائع ہو جائیں گے۔"
       },
       ar: { 
         title: "🛍️ أفضل العروض والخصومات في السعودية", pub: "➕ انشر عروضك", pro: "📌 روج لمنتجك", buy: "🛒 شراء", search: "🔍 ابحث باسم المنتج أو الرقم التسلسلي...", 
         shared: "✅ تم القبول", share: "🔗 مشاركة", pending: "⏳ قيد المراجعة", sendProof: "📸 إثبات", save: "📥 حفظ",
+        clickReview: "🔍 عرض التفاصيل",
+        productCodeLabel: "This is product code:",
         guideTitle: "📖 تعليمات المشاركة (كيف تنشر):",
         ptsLabel: "🪙 المشاركات المقبولة:", balLabel: "💰 الرصيد الإجمالي (5 منصات = 25 بكر):",
         modalTitle: "📸 تحميل 5 لقطات شاشة للمنصات", modalSub: "انشر نفس المنتج على 5 منصات وحدد 5 صور (احصل على 25 بكر)",
         p1: "▶️ 1. لقطة شاشة يوتيوب", p2: "📘 2. لقطة شاشة فيسبوك", p3: "💬 3. واتساب (مجموعة أو قناة)", p4: "📸 4. لقطة شاشة انستغرام", p5: "🎵 5. لقطة شاشة تيك توك",
         btnSubmit: "إرسال جميع لقطات الشاشة الـ 5 🚀", btnVerify: "تحقق 🔍",
-        alertTitle: "إلغاء تحميل الإثبات؟", alertMsg: "هل تريد بالفعل إلغاء هذه المهمة؟ ستفقد جميع الصور المحددة والتي تم التحقق منها."
+        alertMsg: "هل تريد بالفعل إلغاء هذه المهمة؟ ستفقد جميع الصور المحددة والتي تم التحقق منها."
       },
       hi: { 
         title: "🛍️ सऊदी बेस्ट डील्स और डिस्काउंट्स", pub: "➕ डील पब्लिश करें", pro: "📌 डील प्रमोट करें", buy: "🛒 खरीदें", search: "🔍 प्रोडक्ट नाम या सीरियल नंबर खोजें...", 
         shared: "✅ 5 प्लेटफॉर्म स्वीकृत", share: "🔗 शेयर", pending: "⏳ समीक्षाधीन", sendProof: "📸 स्क्रीनशॉट", save: "📥 सेव",
+        clickReview: "🔍 क्लिक रिव्यू",
+        productCodeLabel: "This is product code:",
         guideTitle: "📖 शेयरिंग निर्देश (कैसे पोस्ट करें):",
         ptsLabel: "🪙 स्वीकृत शेयर:", balLabel: "💰 कुल बैलेंस (5 प्लेटफॉर्म = 25 रुपये):",
         modalTitle: "📸 5 प्लेटफॉर्म स्क्रीनशॉट अपलोड करें", modalSub: "सभी 5 प्लेटफॉर्म पर वही डील पोस्ट करें और 5 स्क्रीनशॉट लें (25 रुपये कमाएं)",
         p1: "▶️ 1. यूट्यूब स्क्रीनशॉट", p2: "📘 2. फेसबुक स्क्रीनशॉट", p3: "💬 3. व्हाट्सएप ग्रुप या चैनल", p4: "📸 4. इंस्टाग्राम स्क्रीनशॉट", p5: "🎵 5. टिकटॉक स्क्रीनशॉट",
         btnSubmit: "सभी 5 स्क्रीनशॉट जमा करें 🚀", btnVerify: "सत्यापन करें 🔍",
-        alertTitle: "अपलोड सबूत रद्द करें?", alertMsg: "क्या आप वाकई इस साझाकरण कार्य को रद्द करना चाहते हैं? सभी चयनित और सत्यापित चित्र खो जाएंगे।"
+        alertMsg: "क्या आप वाकई इस साझाकरण कार्य को रद्द करना चाहते हैं? सभी चयनित और सत्यापित चित्र खो जाएंगे।"
       }
     };
 
@@ -652,8 +710,8 @@
 
     function handleUserImgSelect(e) {
       if (e.target.files.length > 0) {
-        currentUserImg = e.target.files[0];
-        document.getElementById('uFileText').innerText = `Selected: ${currentUserImg.name} ✅`;
+        currentUserImgs = Array.from(e.target.files).slice(0, 4);
+        document.getElementById('uFileText').innerText = `Selected: ${currentUserImgs.length} Image(s) ✅`;
       }
     }
 
@@ -661,28 +719,35 @@
       const title = document.getElementById('uTitle').value.trim();
       const price = document.getElementById('uPrice').value.trim();
       const link = document.getElementById('uLink').value.trim();
-      if(!title || !link || !currentUserImg) { alert("تمام معلومات فراہم کریں!"); return; }
+      if(!title || !link || currentUserImgs.length === 0) { alert("تمام معلومات فراہم کریں!"); return; }
 
       const loader = document.getElementById('uLoader');
       loader.style.display = "block";
 
       try {
-        const compressedFile = await compressImageFile(currentUserImg, 1200, 0.8);
-        const formData = new FormData();
-        formData.append("image", compressedFile);
+        let uploadedUserUrls = [];
+        for (let rawFile of currentUserImgs.slice(0, 4)) {
+          const compressedFile = await compressImageFile(rawFile, 1200, 0.8);
+          const formData = new FormData();
+          formData.append("image", compressedFile);
+          const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
+          const imgData = await res.json();
+          if (imgData.success) uploadedUserUrls.push(imgData.data.url);
+        }
 
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
-        const imgData = await res.json();
-        if (imgData.success) {
+        if (uploadedUserUrls.length > 0) {
           pendingDb.push({
             title: title, price: price || "Best Price", link: link,
-            img: imgData.data.url, images: [imgData.data.url],
+            img: uploadedUserUrls[0], images: uploadedUserUrls,
             userName: currentUser.name, userPhone: currentUser.phone, timestamp: Date.now()
           }).then(() => {
             loader.style.display = "none";
             alert("آپ کی ڈیل ایڈمن کو بھیج دی گئی ہے! 🚀");
+            currentUserImgs = [];
             closeUploadModal();
           });
+        } else {
+          loader.style.display = "none";
         }
       } catch (e) { loader.style.display = "none"; }
     }
@@ -709,10 +774,118 @@
       }
     }
 
-    function openZoomModal(imgUrl) {
-      document.getElementById('zoomModalImg').src = imgUrl;
+    /* Opens Enlarged Single Product View when "Click Review" is pressed */
+    function openProductDetailModal(prodKey) {
+      if (!cachedData || !cachedData[prodKey]) return;
+      const item = cachedData[prodKey];
+      const serialTag = item.serialNumber || prodKey;
+      const rawImages = item.images && item.images.length > 0 ? item.images : [item.img || 'https://via.placeholder.com/150'];
+      const imgList = rawImages.slice(0, 4);
+      const txt = i18n[activeLang];
+
+      const totalSharesCount = item.shares || 0;
+      const userStatus = userSharedProducts[prodKey] || null;
+
+      let shareBtnText = `${txt.share} (${totalSharesCount})`;
+      let proofBtnText = txt.sendProof;
+      let isShareDisabled = false;
+      let isProofDisabled = false;
+      let extraBtnClass = '';
+
+      if (userStatus === 'Approved') {
+        shareBtnText = txt.shared;
+        proofBtnText = txt.shared;
+        isShareDisabled = true; isProofDisabled = true;
+        extraBtnClass = 'btn-approved';
+      } else if (userStatus === 'Pending') {
+        shareBtnText = txt.pending;
+        proofBtnText = txt.pending;
+        isShareDisabled = true; isProofDisabled = true;
+        extraBtnClass = 'btn-pending';
+      }
+
+      let thumbsHtml = '';
+      if (imgList.length > 1) {
+        thumbsHtml = '<div class="detail-thumbs-row">';
+        imgList.forEach((im, idx) => {
+          thumbsHtml += `<img src="${im}" class="detail-thumb-img ${idx === 0 ? 'active-thumb' : ''}" onclick="switchDetailImg(this, '${im}')">`;
+        });
+        thumbsHtml += '</div>';
+      }
+
+      const safeTitle = (item.title || '').replace(/'/g, "\\'");
+      const safeLink = (item.link || '').replace(/'/g, "\\'");
+
+      document.getElementById('productDetailContent').innerHTML = `
+        <button class="close-modal" onclick="closeProductDetailModal()">✕</button>
+        <div class="detail-code-highlight">
+          <span>🏷️ ${txt.productCodeLabel}</span>
+          <span class="detail-code-value">${serialTag}</span>
+        </div>
+        <div class="detail-main-img-wrap" onclick="openProductGalleryModal('${prodKey}')">
+          <img id="detailMainImg" src="${imgList[0]}" class="detail-main-img" onerror="this.src='https://via.placeholder.com/150'">
+        </div>
+        ${thumbsHtml}
+        <div class="detail-title">${item.title}</div>
+        <div class="detail-price">${item.price}</div>
+        <div class="btn-action-grid">
+          <a href="${item.link}" target="_blank" class="buy-btn">${txt.buy}</a>
+          <button class="download-btn" onclick="downloadImage('${imgList[0]}', '${safeTitle}')">${txt.save}</button>
+          <button class="share-btn ${extraBtnClass}" ${isShareDisabled ? 'disabled' : ''} onclick="shareProduct('${prodKey}', '${safeTitle}', '${safeLink}', '${serialTag}')">
+            ${shareBtnText}
+          </button>
+          <button class="proof-btn ${extraBtnClass}" ${isProofDisabled ? 'disabled' : ''} onclick="openProofModal('${prodKey}', '${safeTitle}', '${safeLink}', '${serialTag}')">
+            ${proofBtnText}
+          </button>
+        </div>
+      `;
+
+      document.getElementById('productDetailModal').style.display = 'flex';
+    }
+
+    function switchDetailImg(thumbEl, imgUrl) {
+      document.getElementById('detailMainImg').src = imgUrl;
+      document.querySelectorAll('.detail-thumb-img').forEach(el => el.classList.remove('active-thumb'));
+      thumbEl.classList.add('active-thumb');
+    }
+
+    function closeProductDetailModal() {
+      document.getElementById('productDetailModal').style.display = 'none';
+    }
+
+    /* Opens ALL product images (1 to 4) immediately when clicking product image */
+    function openProductGalleryModal(prodKey) {
+      const container = document.getElementById('zoomAllImagesContainer');
+      const titleBar = document.getElementById('zoomGalleryCount');
+      container.innerHTML = '';
+
+      let imgs = [];
+      if (cachedData && cachedData[prodKey]) {
+        const item = cachedData[prodKey];
+        const raw = (item.images && item.images.length > 0) ? item.images : [item.img || 'https://via.placeholder.com/150'];
+        imgs = raw.slice(0, 4);
+        titleBar.innerText = `🖼️ ${item.serialNumber || prodKey} (${imgs.length} ${imgs.length > 1 ? 'Images' : 'Image'})`;
+      }
+
+      imgs.forEach((url, index) => {
+        const imgEl = document.createElement('img');
+        imgEl.src = url;
+        imgEl.className = 'zoom-gallery-img';
+        imgEl.alt = `Product Image ${index + 1}`;
+        container.appendChild(imgEl);
+      });
+
       document.getElementById('zoomModal').style.display = 'flex';
     }
+
+    function openSingleSampleModal(imgUrl) {
+      const container = document.getElementById('zoomAllImagesContainer');
+      const titleBar = document.getElementById('zoomGalleryCount');
+      titleBar.innerText = '👁️ Sample Screenshot';
+      container.innerHTML = `<img src="${imgUrl}" class="zoom-gallery-img" alt="Sample">`;
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+
     function closeZoomModal() {
       document.getElementById('zoomModal').style.display = 'none';
     }
@@ -841,17 +1014,14 @@
       return keywords;
     }
 
-    /* STRICT PLATFORM + ICON/LAYOUT VERIFICATION ENGINE */
     function detectScreenshotPlatform(vis, scannedText) {
       const scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-      // 1. WhatsApp (Both Group AND Channel)
-      if (vis.greenBubbleRatio > 0.045) scores[3] += 5; // Signature WhatsApp green chat bubble
-      if (scannedText.includes("write an update") || scannedText.includes("follower") || scannedText.includes("followers")) scores[3] += 4; // WhatsApp Channel
-      if (scannedText.includes("message") && (scannedText.includes("today") || scannedText.includes("you") || scannedText.includes("group"))) scores[3] += 4; // WhatsApp Group
+      if (vis.greenBubbleRatio > 0.045) scores[3] += 5;
+      if (scannedText.includes("write an update") || scannedText.includes("follower") || scannedText.includes("followers")) scores[3] += 4;
+      if (scannedText.includes("message") && (scannedText.includes("today") || scannedText.includes("you") || scannedText.includes("group"))) scores[3] += 4;
       if (scannedText.includes("whatsapp") || scannedText.includes("invite via link") || scannedText.includes("add members")) scores[3] += 4;
 
-      // 2. YouTube (Community Post / Shorts)
       if ((scannedText.includes("seconds ago") || scannedText.includes("minutes ago") || scannedText.includes("hours ago") || scannedText.includes("days ago")) && !scannedText.includes("photo") && !scannedText.includes("just now")) {
         scores[1] += 4;
       }
@@ -862,25 +1032,21 @@
         scores[1] += 3;
       }
 
-      // 3. Facebook (Post / Feed)
-      if (vis.whiteBgRatio > 0.22 && vis.hasWhiteBottom) scores[2] += 4; // Light mode Facebook UI
+      if (vis.whiteBgRatio > 0.22 && vis.hasWhiteBottom) scores[2] += 4;
       if (scannedText.includes("just now") || scannedText.includes("is in ") || scannedText.includes("manage posts") || scannedText.includes("facebook")) scores[2] += 4;
-      if (scannedText.includes("boost") && !scannedText.includes("boost post") && !scannedText.includes("view insights")) scores[2] += 4; // Blue "Boost" link in FB
+      if (scannedText.includes("boost") && !scannedText.includes("boost post") && !scannedText.includes("view insights")) scores[2] += 4;
 
-      // 4. Instagram (Post / Reel)
       if (scannedText.includes("view insights") || scannedText.includes("boost post") || scannedText.includes("instagram") || scannedText.includes("get inspired on edits")) {
         scores[4] += 6;
       }
       if (vis.blueRatio > 0.012 && vis.darkBgRatio > 0.35 && vis.greenBubbleRatio < 0.01) {
-        scores[4] += 4; // Blue "Boost post" button on dark Instagram UI
+        scores[4] += 4;
       }
 
-      // 5. TikTok (Video / Photo Mode)
-      if (vis.hasTikTokRightIcons && vis.hasDarkBottom) scores[5] += 5; // Right-side vertical icon column
-      if (scannedText.includes("explore") && scannedText.includes("inbox")) scores[5] += 5; // TikTok bottom nav icons
+      if (vis.hasTikTokRightIcons && vis.hasDarkBottom) scores[5] += 5;
+      if (scannedText.includes("explore") && scannedText.includes("inbox")) scores[5] += 5;
       if (scannedText.includes("for you") || scannedText.includes("following") || scannedText.includes("tiktok") || scannedText.includes("hide")) scores[5] += 4;
 
-      // Determine highest scoring platform
       let detectedIndex = 0;
       let maxScore = 0;
       for (let p = 1; p <= 5; p++) {
@@ -908,16 +1074,12 @@
 
       try {
         const compressedScreenshot = await compressImageFile(proofFiles[index], 1200, 0.8);
-
-        // Step 1: Analyze App Visual Icons, Layout & Color Fingerprint
         const visualSig = await analyzeAppVisualSignature(compressedScreenshot);
 
-        // Step 2: Scan Text & Product Serial/Link
         const ocrResult = await Tesseract.recognize(compressedScreenshot, 'eng');
         const scannedText = ocrResult.data.text.toLowerCase();
         const cleanScannedText = scannedText.replace(/[^a-z0-9]/g, '');
 
-        // Step 3: Strict Cross-Platform Check (Prevents using one app's screenshot in another slot)
         const detection = detectScreenshotPlatform(visualSig, scannedText);
 
         if (detection.maxScore < 3 || detection.detectedIndex !== index) {
@@ -934,7 +1096,6 @@
           return;
         }
 
-        // Step 4: Verify Product Link, Serial Number (e.g. GO1026), or Product Title
         let isSerialMatch = (cleanSerial.length >= 4 && cleanScannedText.includes(cleanSerial));
         let isAppDomainMatch = cleanScannedText.includes("aaspet9githubio");
         let isLinkMatch = (targetLinkKey.length > 3 && cleanScannedText.includes(targetLinkKey));
@@ -953,7 +1114,6 @@
           return;
         }
 
-        // Step 5: Upload Verified Image
         loader.innerText = `Uploading Verified ${platformNames[index]} Screenshot... 🚀`;
         const formData = new FormData();
         formData.append("image", compressedScreenshot);
@@ -1037,6 +1197,7 @@
           uploadedUrls = { 1: null, 2: null, 3: null, 4: null, 5: null };
           
           closeProofModal();
+          closeProductDetailModal();
           if(cachedData) displayData(cachedData);
         });
       } catch (e) { 
@@ -1160,31 +1321,12 @@
         const isTargeted = (targetItemId && (serialLower === targetItemId.toLowerCase() || key.toLowerCase() === targetItemId.toLowerCase()));
 
         let rawImages = item.images && item.images.length > 0 ? item.images : [item.img || 'https://via.placeholder.com/150'];
-        const imgList = rawImages.slice(0, 3); 
-
-        const totalSharesCount = item.shares || 0; 
-        const userStatus = userSharedProducts[key] || null; 
-
-        let shareBtnText = `${txt.share} (${totalSharesCount})`;
-        let proofBtnText = txt.sendProof;
-        let isShareDisabled = false;
-        let isProofDisabled = false;
-        let extraBtnClass = '';
-
-        if (userStatus === 'Approved') {
-          shareBtnText = txt.shared;
-          proofBtnText = txt.shared;
-          isShareDisabled = true; isProofDisabled = true;
-          extraBtnClass = 'btn-approved'; 
-        } else if (userStatus === 'Pending') {
-          shareBtnText = txt.pending;
-          proofBtnText = txt.pending;
-          isShareDisabled = true; isProofDisabled = true;
-          extraBtnClass = 'btn-pending'; 
-        }
+        const imgList = rawImages.slice(0, 4); 
 
         let dotsHtml = '';
+        let countBadgeHtml = '';
         if(imgList.length > 1) {
+          countBadgeHtml = `<div class="img-count-pill">🖼️ ${imgList.length}</div>`;
           dotsHtml = '<div class="slider-dots">';
           imgList.forEach((im, dIdx) => {
             dotsHtml += `<div class="dot ${dIdx===0?'active':''}" onclick="changeSliderImg(event, '${key}', '${im}', ${dIdx})"></div>`;
@@ -1198,7 +1340,8 @@
         cardDiv.innerHTML = `
           ${isTargeted ? '<div class="target-badge">🔥 SHARED DEAL</div>' : (item.pinned ? '<div class="pinned-badge">📌 PINNED</div>' : '')}
           <div>
-            <div class="slider-wrapper" onclick="openZoomModal(this.querySelector('.product-media').src)">
+            <div class="slider-wrapper" onclick="openProductGalleryModal('${key}')">
+              ${countBadgeHtml}
               <img src="${imgList[0]}" class="product-media" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
               ${dotsHtml}
             </div>
@@ -1207,16 +1350,7 @@
             <div class="product-price">${item.price}</div>
           </div>
           
-          <div class="btn-action-grid">
-            <a href="${item.link}" target="_blank" class="buy-btn">${txt.buy}</a>
-            <button class="download-btn" onclick="downloadImage('${imgList[0]}', '${item.title.replace(/'/g, "\\'")}')">${txt.save}</button>
-            <button class="share-btn ${extraBtnClass}" ${isShareDisabled ? 'disabled' : ''} onclick="shareProduct('${key}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}', '${serialTag}')">
-              ${shareBtnText}
-            </button>
-            <button class="proof-btn ${extraBtnClass}" ${isProofDisabled ? 'disabled' : ''} onclick="openProofModal('${key}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}', '${serialTag}')">
-              ${proofBtnText}
-            </button>
-          </div>
+          <button class="click-review-btn" onclick="openProductDetailModal('${key}')">${txt.clickReview}</button>
         `;
         fragment.appendChild(cardDiv);
 
