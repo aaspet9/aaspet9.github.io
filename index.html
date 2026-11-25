@@ -75,7 +75,6 @@
 
     .serial-badge { background: #e0f2fe; color: #0284c7; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 4px; border: 1px solid #bae6fd; font-family: monospace; }
 
-    /* Highlighted Product Code Banner inside Enlarged Detail Modal */
     .detail-code-highlight {
       display: inline-flex;
       align-items: center;
@@ -111,7 +110,6 @@
     .product-title { font-size: 11px; font-weight: 600; color: #222222; margin-bottom: 4px; line-height: 1.3; height: 28px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
     .product-price { font-size: 13px; font-weight: 800; color: #ff4747; margin-bottom: 6px; }
 
-    /* Single Click Review Button in Grid */
     .click-review-btn {
       width: 100%;
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
@@ -127,7 +125,6 @@
     }
     .click-review-btn:active { transform: scale(0.97); }
 
-    /* Enlarged Single Product Detail Modal */
     .detail-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.82); display: none; justify-content: center; align-items: center; z-index: 2500; padding: 12px; overflow-y: auto; }
     .detail-modal-box { background: #ffffff; width: 100%; max-width: 460px; border-radius: 16px; padding: 16px; max-height: 92vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
     .detail-main-img-wrap { position: relative; width: 100%; height: 260px; border-radius: 12px; overflow: hidden; background: #f8fafc; border: 1px solid #e2e8f0; margin-bottom: 10px; cursor: zoom-in; }
@@ -195,7 +192,6 @@
     <button class="guide-btn" onclick="openGuideModal('youtube')" id="gBtnYt">▶️ YouTube</button>
     <button class="guide-btn" onclick="openGuideModal('facebook')" id="gBtnFb">📘 Facebook</button>
     <button class="guide-btn" onclick="openGuideModal('whatsapp')" id="gBtnWa">💬 WhatsApp (Group/Channel)</button>
-    <button class="guide-btn" onclick="openGuideModal('instagram')" id="gBtnIg">📸 Instagram</button>
     <button class="guide-btn" onclick="openGuideModal('tiktok')" id="gBtnTt">🎵 TikTok</button>
   </div>
 
@@ -205,7 +201,7 @@
       <span class="wallet-val" id="uPoints">0 Points</span>
     </div>
     <div class="wallet-row">
-      <span id="txtBalanceLabel">💰 کل رقم (5 پلیٹ فارم = 25 روپے):</span>
+      <span id="txtBalanceLabel">💰 کل رقم (4 پلیٹ فارم = 25 روپے):</span>
       <span class="wallet-val" id="uEarnings">0 PKR (0 SAR)</span>
     </div>
     <button class="withdraw-btn" id="withdrawBtn" disabled onclick="openWithdrawModal()">💸 Withdraw Money (Min 50 SAR / 375 PKR)</button>
@@ -273,12 +269,12 @@
     </div>
   </div>
 
-  <!-- Screenshot Upload Modal -->
+  <!-- Screenshot Upload Modal (4 Platforms) -->
   <div class="modal-overlay" id="proofModal">
     <div class="modal-box">
       <button class="close-modal" onclick="cancelUploadProofAndClear()">✕</button>
-      <h3 id="modalProofTitle" style="margin-bottom: 8px; color:#16a34a; text-align:center;">📸 5 پلیٹ فارم کے سکرین شاٹس اپلوڈ کریں</h3>
-      <p id="modalProofSub" style="font-size:11px; color:#64748b; text-align:center; margin-bottom:12px;">ہر پلیٹ فارم پر وہی پروڈکٹ پوسٹ کر کے 5 تصاویر سلیکٹ کریں (کل رقم: 25 روپے)</p>
+      <h3 id="modalProofTitle" style="margin-bottom: 8px; color:#16a34a; text-align:center;">📸 4 پلیٹ فارم کے سکرین شاٹس اپلوڈ کریں</h3>
+      <p id="modalProofSub" style="font-size:11px; color:#64748b; text-align:center; margin-bottom:12px;">ہر پلیٹ فارم پر وہی پروڈکٹ پوسٹ کر کے 4 تصاویر سلیکٹ کریں (کل رقم: 25 روپے)</p>
       
       <div class="file-row">
         <div class="file-btn-sm" onclick="document.getElementById('pImg1').click()"><span id="pTxt1">▶️ 1. YouTube Screenshot</span><input type="file" id="pImg1" accept="image/*" style="display:none;" onchange="handleProofImage(event, 1)"></div>
@@ -302,21 +298,14 @@
       </div>
 
       <div class="file-row">
-        <div class="file-btn-sm" onclick="document.getElementById('pImg4').click()"><span id="pTxt4">📸 4. Instagram Screenshot</span><input type="file" id="pImg4" accept="image/*" style="display:none;" onchange="handleProofImage(event, 4)"></div>
-        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/4Z7pwPBC/124104.jpg')">👁️ Sample</button>
+        <div class="file-btn-sm" onclick="document.getElementById('pImg4').click()"><span id="pTxt4">🎵 4. TikTok Screenshot</span><input type="file" id="pImg4" accept="image/*" style="display:none;" onchange="handleProofImage(event, 4)"></div>
+        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/VpQ49JWT/124108.jpg')">👁️ Sample</button>
         <button class="verify-btn" id="verifyBtn4" onclick="verifySingleImage(4)" disabled>Verify 🔍</button>
         <span id="badge4" style="display:none;" class="status-badge"></span>
       </div>
 
-      <div class="file-row">
-        <div class="file-btn-sm" onclick="document.getElementById('pImg5').click()"><span id="pTxt5">🎵 5. TikTok Screenshot</span><input type="file" id="pImg5" accept="image/*" style="display:none;" onchange="handleProofImage(event, 5)"></div>
-        <button class="sample-btn" onclick="openSingleSampleModal('https://i.ibb.co/VpQ49JWT/124108.jpg')">👁️ Sample</button>
-        <button class="verify-btn" id="verifyBtn5" onclick="verifySingleImage(5)" disabled>Verify 🔍</button>
-        <span id="badge5" style="display:none;" class="status-badge"></span>
-      </div>
-
       <div id="proofLoader" style="display:none; text-align:center; font-size:12px; color:#16a34a; font-weight:bold; margin:8px 0;">تصویر کے آئیکن اور ڈیزائن کی جانچ ہو رہی ہے... 🔍⏳</div>
-      <button id="btnSubmitProof" style="width:100%; background:#16a34a; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer; opacity:0.6;" disabled onclick="submit5ShareProofs()">تمام 5 سکرین شاٹ جمع کریں 🚀</button>
+      <button id="btnSubmitProof" style="width:100%; background:#16a34a; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer; opacity:0.6;" disabled onclick="submit4ShareProofs()">تمام 4 سکرین شاٹ جمع کریں 🚀</button>
     </div>
   </div>
 
@@ -373,10 +362,11 @@
     const IMGBB_API_KEY = "66dcdf21e30733bfd85545d9fb5e76c4";
     const PKR_PER_SHARE = 25; 
     const SAR_RATE = 75;
+    const TOTAL_PLATFORMS = 4;
 
-    let proofFiles = { 1: null, 2: null, 3: null, 4: null, 5: null };
-    let verifiedStates = { 1: false, 2: false, 3: false, 4: false, 5: false };
-    let uploadedUrls = { 1: null, 2: null, 3: null, 4: null, 5: null };
+    let proofFiles = { 1: null, 2: null, 3: null, 4: null };
+    let verifiedStates = { 1: false, 2: false, 3: false, 4: false };
+    let uploadedUrls = { 1: null, 2: null, 3: null, 4: null };
 
     let currentUserImgs = [];
     let selectedProdKey = "";
@@ -521,33 +511,32 @@
       1: "YouTube",
       2: "Facebook",
       3: "WhatsApp (Group or Channel)",
-      4: "Instagram",
-      5: "TikTok"
+      4: "TikTok"
     };
 
     const i18n = {
       en: { 
         title: "🛍️ Saudi Best Deals & Discounts", pub: "➕ Publish Deals", pro: "📌 Promote Deal", buy: "🛒 Buy", search: "🔍 Search product or Serial Number...", 
-        shared: "✅ 5 Platforms Approved", share: "🔗 Share 5 Platforms", pending: "⏳ Pending Approval", sendProof: "📸 Submit Proof", save: "📥 Save",
+        shared: "✅ 4 Platforms Approved", share: "🔗 Share 4 Platforms", pending: "⏳ Pending Approval", sendProof: "📸 Submit Proof", save: "📥 Save",
         clickReview: "🔍 Click Review",
         productCodeLabel: "This is product code:",
         guideTitle: "📖 Sharing Instructions (How to post):",
-        ptsLabel: "🪙 Approved Shares:", balLabel: "💰 Total Balance (5 Platforms = 25 PKR):",
-        modalTitle: "📸 Upload 5 Platform Screenshots", modalSub: "Post the same deal on all 5 platforms and select 5 images (Earn 25 PKR)",
-        p1: "▶️ 1. YouTube Screenshot", p2: "📘 2. Facebook Screenshot", p3: "💬 3. WhatsApp Group/Channel", p4: "📸 4. Instagram Screenshot", p5: "🎵 5. TikTok Screenshot",
-        btnSubmit: "Submit All 5 Screenshots 🚀", btnVerify: "Verify 🔍",
+        ptsLabel: "🪙 Approved Shares:", balLabel: "💰 Total Balance (4 Platforms = 25 PKR):",
+        modalTitle: "📸 Upload 4 Platform Screenshots", modalSub: "Post the same deal on all 4 platforms and select 4 images (Earn 25 PKR)",
+        p1: "▶️ 1. YouTube Screenshot", p2: "📘 2. Facebook Screenshot", p3: "💬 3. WhatsApp Group/Channel", p4: "🎵 4. TikTok Screenshot",
+        btnSubmit: "Submit All 4 Screenshots 🚀", btnVerify: "Verify 🔍",
         alertMsg: "Do you really want to cancel this sharing task? All currently selected and verified images will be lost."
       },
       ur: { 
         title: "🛍️ سعودی بیسٹ ڈیلز & ڈسکاؤنٹس", pub: "➕ اپنی ڈیلز شائع کریں", pro: "📌 ڈیل پروموٹ کروائیں", buy: "🛒 خریدیں", search: "🔍 پروڈکٹ کا نام یا سیریل نمبر سرچ کریں...", 
-        shared: "✅ 5 پلیٹ فارم منظور", share: "🔗 شیئر ڈیل", pending: "⏳ منتظر", sendProof: "📸 سکرین شاٹ", save: "📥 سیو",
+        shared: "✅ 4 پلیٹ فارم منظور", share: "🔗 شیئر ڈیل", pending: "⏳ منتظر", sendProof: "📸 سکرین شاٹ", save: "📥 سیو",
         clickReview: "🔍 کلک ریویو",
         productCodeLabel: "This is product code:",
         guideTitle: "📖 شیئرنگ کی ہدایات (کیسے پوسٹ کریں):",
-        ptsLabel: "🪙 منظور شدہ شیئرز:", balLabel: "💰 کل رقم (5 پلیٹ فارم = 25 روپے):",
-        modalTitle: "📸 5 پلیٹ فارم کے سکرین شاٹس اپلوڈ کریں", modalSub: "ہر پلیٹ فارم پر وہی پروڈکٹ پوسٹ کر کے 5 تصاویر سلیکٹ کریں (کل رقم: 25 روپے)",
-        p1: "▶️ 1. یوٹیوب سکرین شاٹ", p2: "📘 2. فیس بک سکرین شاٹ", p3: "💬 3. واٹس ایپ گروپ یا چینل", p4: "📸 4. انسٹاگرام سکرین شاٹ", p5: "🎵 5. ٹک ٹاک سکرین شاٹ",
-        btnSubmit: "تمام 5 سکرین شاٹ جمع کریں 🚀", btnVerify: "تصدیق کریں 🔍",
+        ptsLabel: "🪙 منظور شدہ شیئرز:", balLabel: "💰 کل رقم (4 پلیٹ فارم = 25 روپے):",
+        modalTitle: "📸 4 پلیٹ فارم کے سکرین شاٹس اپلوڈ کریں", modalSub: "ہر پلیٹ فارم پر وہی پروڈکٹ پوسٹ کر کے 4 تصاویر سلیکٹ کریں (کل رقم: 25 روپے)",
+        p1: "▶️ 1. یوٹیوب سکرین شاٹ", p2: "📘 2. فیس بک سکرین شاٹ", p3: "💬 3. واٹس ایپ گروپ یا چینل", p4: "🎵 4. ٹک ٹاک سکرین شاٹ",
+        btnSubmit: "تمام 4 سکرین شاٹ جمع کریں 🚀", btnVerify: "تصدیق کریں 🔍",
         alertMsg: "کیا آپ واقعی اس ٹاسک کو منسوخ کرنا چاہتے ہیں؟ آپ کے سلیکٹ کردہ اور تصدیق شدہ سکرین شاٹس ضائع ہو جائیں گے۔"
       },
       ar: { 
@@ -556,22 +545,22 @@
         clickReview: "🔍 عرض التفاصيل",
         productCodeLabel: "This is product code:",
         guideTitle: "📖 تعليمات المشاركة (كيف تنشر):",
-        ptsLabel: "🪙 المشاركات المقبولة:", balLabel: "💰 الرصيد الإجمالي (5 منصات = 25 بكر):",
-        modalTitle: "📸 تحميل 5 لقطات شاشة للمنصات", modalSub: "انشر نفس المنتج على 5 منصات وحدد 5 صور (احصل على 25 بكر)",
-        p1: "▶️ 1. لقطة شاشة يوتيوب", p2: "📘 2. لقطة شاشة فيسبوك", p3: "💬 3. واتساب (مجموعة أو قناة)", p4: "📸 4. لقطة شاشة انستغرام", p5: "🎵 5. لقطة شاشة تيك توك",
-        btnSubmit: "إرسال جميع لقطات الشاشة الـ 5 🚀", btnVerify: "تحقق 🔍",
+        ptsLabel: "🪙 المشاركات المقبولة:", balLabel: "💰 الرصيد الإجمالي (4 منصات = 25 بكر):",
+        modalTitle: "📸 تحميل 4 لقطات شاشة للمنصات", modalSub: "انشر نفس المنتج على 4 منصات وحدد 4 صور (احصل على 25 بكر)",
+        p1: "▶️ 1. لقطة شاشة يوتيوب", p2: "📘 2. لقطة شاشة فيسبوك", p3: "💬 3. واتساب (مجموعة أو قناة)", p4: "🎵 4. لقطة شاشة تيك توك",
+        btnSubmit: "إرسال جميع لقطات الشاشة الـ 4 🚀", btnVerify: "تحقق 🔍",
         alertMsg: "هل تريد بالفعل إلغاء هذه المهمة؟ ستفقد جميع الصور المحددة والتي تم التحقق منها."
       },
       hi: { 
         title: "🛍️ सऊदी बेस्ट डील्स और डिस्काउंट्स", pub: "➕ डील पब्लिश करें", pro: "📌 डील प्रमोट करें", buy: "🛒 खरीदें", search: "🔍 प्रोडक्ट नाम या सीरियल नंबर खोजें...", 
-        shared: "✅ 5 प्लेटफॉर्म स्वीकृत", share: "🔗 शेयर", pending: "⏳ समीक्षाधीन", sendProof: "📸 स्क्रीनशॉट", save: "📥 सेव",
+        shared: "✅ 4 प्लेटफॉर्म स्वीकृत", share: "🔗 शेयर", pending: "⏳ समीक्षाधीन", sendProof: "📸 स्क्रीनशॉट", save: "📥 सेव",
         clickReview: "🔍 क्लिक रिव्यू",
         productCodeLabel: "This is product code:",
         guideTitle: "📖 शेयरिंग निर्देश (कैसे पोस्ट करें):",
-        ptsLabel: "🪙 स्वीकृत शेयर:", balLabel: "💰 कुल बैलेंस (5 प्लेटफॉर्म = 25 रुपये):",
-        modalTitle: "📸 5 प्लेटफॉर्म स्क्रीनशॉट अपलोड करें", modalSub: "सभी 5 प्लेटफॉर्म पर वही डील पोस्ट करें और 5 स्क्रीनशॉट लें (25 रुपये कमाएं)",
-        p1: "▶️ 1. यूट्यूब स्क्रीनशॉट", p2: "📘 2. फेसबुक स्क्रीनशॉट", p3: "💬 3. व्हाट्सएप ग्रुप या चैनल", p4: "📸 4. इंस्टाग्राम स्क्रीनशॉट", p5: "🎵 5. टिकटॉक स्क्रीनशॉट",
-        btnSubmit: "सभी 5 स्क्रीनशॉट जमा करें 🚀", btnVerify: "सत्यापन करें 🔍",
+        ptsLabel: "🪙 स्वीकृत शेयर:", balLabel: "💰 कुल बैलेंस (4 प्लेटफॉर्म = 25 रुपये):",
+        modalTitle: "📸 4 प्लेटफॉर्म स्क्रीनशॉट अपलोड करें", modalSub: "सभी 4 प्लेटफॉर्म पर वही डील पोस्ट करें और 4 स्क्रीनशॉट लें (25 रुपये कमाएं)",
+        p1: "▶️ 1. यूट्यूब स्क्रीनशॉट", p2: "📘 2. फेसबुक स्क्रीनशॉट", p3: "💬 3. व्हाट्सएप ग्रुप या चैनल", p4: "🎵 4. टिकटॉक स्क्रीनशॉट",
+        btnSubmit: "सभी 4 स्क्रीनशॉट जमा करें 🚀", btnVerify: "सत्यापन करें 🔍",
         alertMsg: "क्या आप वाकई इस साझाकरण कार्य को रद्द करना चाहते हैं? सभी चयनित और सत्यापित चित्र खो जाएंगे।"
       }
     };
@@ -581,28 +570,24 @@
         youtube: { title: "▶️ How to post on YouTube", text: "1. Click Save image to gallery.<br>2. Click Share to copy link & info.<br>3. Upload image on YouTube Community Post or Shorts.<br>4. Paste copied link in post text/description.<br>5. Take full screenshot showing YouTube bottom icons and upload." },
         facebook: { title: "📘 How to post on Facebook", text: "1. Click Save image to gallery.<br>2. Click Share to copy link & info.<br>3. Upload image on Facebook Post or Story.<br>4. Paste copied link in post caption.<br>5. Take full screenshot showing Facebook icons and upload." },
         whatsapp: { title: "💬 How to post on WhatsApp (Group or Channel)", text: "1. Save product image to gallery.<br>2. Copy product link via Share button.<br>3. Send image + link to any WhatsApp Group OR WhatsApp Channel.<br>4. Both Group and Channel screenshots are accepted!<br>5. Take full screenshot and upload." },
-        instagram: { title: "📸 How to post on Instagram", text: "1. Save product image to gallery.<br>2. Copy product link.<br>3. Upload image on Instagram Post/Reel/Story.<br>4. Paste product details & serial number in caption.<br>5. Take full screenshot showing Instagram icons and upload." },
         tiktok: { title: "🎵 How to post on TikTok", text: "1. Save product image to gallery.<br>2. Copy product link.<br>3. Upload photo/video on TikTok with sound.<br>4. Paste product link & serial number in caption.<br>5. Take full screenshot showing TikTok side & bottom icons and upload." }
       },
       ur: {
         youtube: { title: "▶️ یوٹیوب پر پوسٹ کرنے کا طریقہ", text: "1. Save کا بٹن دبا کر تصویر ڈاؤنلوڈ کریں۔<br>2. Share کا بٹن دبا کر لنک کاپی کریں۔<br>3. یوٹیوب کمیونٹی پوسٹ یا شارٹس پر تصویر لگائیں اور لنک پیسٹ کریں۔<br>4. یوٹیوب ایپ کے نیچے والے آئیکنز سمیت مکمل سکرین شاٹ لیں اور اپلوڈ کریں۔" },
         facebook: { title: "📘 فیس بک پر پوسٹ کرنے کا طریقہ", text: "1. Save کا بٹن دبا کر تصویر ڈاؤنلوڈ کریں۔<br>2. Share کا بٹن دبا کر لنک کاپی کریں۔<br>3. فیس بک پوسٹ پر تصویر اور لنک لگائیں۔<br>4. فیس بک کے آئیکنز سمیت مکمل سکرین شاٹ لے کر اپلوڈ کریں۔" },
         whatsapp: { title: "💬 واٹس ایپ (گروپ یا چینل) پر پوسٹ کرنے کا طریقہ", text: "1. تصویر سیو کریں اور Share دبا کر لنک کاپی کریں۔<br>2. یہ پوسٹ اپنے **واٹس ایپ گروپ** یا **واٹس ایپ چینل** دونوں میں سے کسی میں بھی شیئر کریں (دونوں قبول ہیں)۔<br>3. مکمل چیٹ/چینل کا سکرین شاٹ لے کر اپلوڈ کریں۔" },
-        instagram: { title: "📸 انسٹاگرام پر پوسٹ کرنے کا طریقہ", text: "1. تصویر سیو کریں اور لنک کاپی کریں۔<br>2. انسٹاگرام پوسٹ یا ریل پر تصویر لگائیں اور کیپشن میں لنک/سیریل نمبر لکھیں۔<br>3. انسٹاگرام کے آئیکنز سمیت مکمل سکرین شاٹ لے کر اپلوڈ کریں۔" },
         tiktok: { title: "🎵 ٹک ٹاک پر پوسٹ کرنے کا طریقہ", text: "1. تصویر سیو کریں اور لنک کاپی کریں۔<br>2. ٹک ٹاک پر تصویر پوسٹ کریں اور کیپشن میں لنک/سیریل نمبر لکھیں۔<br>3. ٹک ٹاک کے سائیڈ اور نیچے والے آئیکنز سمیت مکمل سکرین شاٹ اپلوڈ کریں۔" }
       },
       ar: {
         youtube: { title: "▶️ كيفية النشر على يوتيوب", text: "1. احفظ الصورة وانسخ الرابط.<br>2. انشر على يوتيوب مع الرابط.<br>3. التقط لقطة شاشة كاملة تظهر أيقونات يوتيوب وارفعها." },
         facebook: { title: "📘 كيفية النشر على فيسبوك", text: "1. احفظ الصورة وانسخ الرابط.<br>2. انشر على فيسبوك مع الرابط.<br>3. التقط لقطة شاشة كاملة وارفعها." },
         whatsapp: { title: "💬 كيفية النشر على واتساب (مجموعة أو قناة)", text: "1. احفظ الصورة وانسخ الرابط.<br>2. أرسلها في مجموعة واتساب أو قناة واتساب (كلاهما مقبول).<br>3. التقط لقطة شاشة كاملة وارفعها." },
-        instagram: { title: "📸 كيفية النشر على انستغرام", text: "1. احفظ الصورة وانسخ الرابط.<br>2. انشر على انستغرام مع الرابط والرقم التسلسلي.<br>3. التقط لقطة شاشة كاملة وارفعها." },
         tiktok: { title: "🎵 كيفية النشر على تيك توك", text: "1. احفظ الصورة وانسخ الرابط.<br>2. انشر على تيك توك مع الرابط.<br>3. التقط لقطة شاشة كاملة وارفعها." }
       },
       hi: {
         youtube: { title: "▶️ यूट्यूब पर पोस्ट कैसे करें", text: "1. इमेज सेव करें और लिंक कॉपी करें।<br>2. यूट्यूब पर पोस्ट करें और लिंक पेस्ट करें।<br>3. यूट्यूब आइकन्स के साथ पूरा स्क्रीनशॉट अपलोड करें।" },
         facebook: { title: "📘 फेसबुक पर पोस्ट कैसे करें", text: "1. इमेज सेव करें और लिंक कॉपी करें।<br>2. फेसबुक पर पोस्ट करें और लिंक पेस्ट करें।<br>3. फेसबुक आइकन्स के साथ पूरा स्क्रीनशॉट अपलोड करें।" },
         whatsapp: { title: "💬 व्हाट्सएप (ग्रुप या चैनल) पर पोस्ट कैसे करें", text: "1. इमेज सेव करें और लिंक कॉपी करें।<br>2. व्हाट्सएप ग्रुप या व्हाट्सएप चैनल में शेयर करें (दोनों मान्य हैं)।<br>3. पूरा स्क्रीनशॉट अपलोड करें।" },
-        instagram: { title: "📸 इंस्टाग्राम पर पोस्ट कैसे करें", text: "1. इमेज सेव करें और लिंक कॉपी करें।<br>2. इंस्टाग्राम पर पोस्ट करें और लिंक पेस्ट करें।<br>3. पूरा स्क्रीनशॉट अपलोड करें।" },
         tiktok: { title: "🎵 टिकटॉक पर पोस्ट कैसे करें", text: "1. इमेज सेव करें और लिंक कॉपी करें।<br>2. टिकटॉक पर पोस्ट करें और लिंक पेस्ट करें।<br>3. पूरा स्क्रीनशॉट अपलोड करें।" }
       }
     };
@@ -681,7 +666,7 @@
         const pkrEarnings = approvedCount * PKR_PER_SHARE;
         const sarEarnings = (pkrEarnings / SAR_RATE).toFixed(2);
 
-        document.getElementById('uPoints').innerText = `${approvedCount} Approved (${approvedCount * 5} Posts)`;
+        document.getElementById('uPoints').innerText = `${approvedCount} Approved (${approvedCount * TOTAL_PLATFORMS} Posts)`;
         document.getElementById('uEarnings').innerText = `${pkrEarnings} PKR (${sarEarnings} SAR)`;
         document.getElementById('withdrawBtn').disabled = (parseFloat(sarEarnings) < 50);
       });
@@ -752,29 +737,92 @@
       } catch (e) { loader.style.display = "none"; }
     }
 
-    async function downloadImage(imgUrl, title) {
+    /* Draws Product Code + Google Link Guide + Search Code Guide at TOP of saved image */
+    async function downloadImage(imgUrl, title, serialCode) {
+      const codeText = serialCode || 'DEAL';
+      const topBannerLine1 = `This is product code: ${codeText}`;
+      const topBannerLine2 = `Open on Google: aaspet9.github.io`;
+      const topBannerLine3 = `Search any product code in app`;
+
       try {
-        alert("تصویر ڈاؤنلوڈ ہو رہی ہے... ⏳");
+        alert("تصویر کے اوپر کوڈ اور ایپ کھولنے کی مکمل تفصیل لگا کر سیو ہو رہی ہے... ⏳");
         const response = await fetch(imgUrl, { mode: 'cors' });
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = blobUrl;
-        a.download = `${title.replace(/[^a-zA-Z0-9]/g, '_')}_product.jpg`;
-        document.body.appendChild(a);
-        a.click();
-        
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = blobUrl;
+        });
+
+        const canvas = document.createElement('canvas');
+        const targetWidth = Math.max(800, img.naturalWidth || 800);
+        const bannerHeight = Math.round(targetWidth * 0.21);
+        const imgHeight = Math.round((img.naturalHeight / (img.naturalWidth || 1)) * targetWidth);
+
+        canvas.width = targetWidth;
+        canvas.height = bannerHeight + imgHeight;
+
+        const ctx = canvas.getContext('2d');
+
+        const grad = ctx.createLinearGradient(0, 0, targetWidth, 0);
+        grad.addColorStop(0, '#fde047');
+        grad.addColorStop(0.5, '#fef08a');
+        grad.addColorStop(1, '#facc15');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, targetWidth, bannerHeight);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, bannerHeight - 4, targetWidth, 4);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        const codeFontSize = Math.max(22, Math.round(bannerHeight * 0.28));
+        ctx.font = `900 ${codeFontSize}px system-ui, -apple-system, sans-serif`;
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText(topBannerLine1, targetWidth / 2, bannerHeight * 0.24);
+
+        const linkFontSize = Math.max(16, Math.round(bannerHeight * 0.20));
+        ctx.font = `800 ${linkFontSize}px monospace`;
+        ctx.fillStyle = '#1d4ed8';
+        ctx.fillText(topBannerLine2, targetWidth / 2, bannerHeight * 0.56);
+
+        const searchHintFontSize = Math.max(14, Math.round(bannerHeight * 0.17));
+        ctx.font = `700 ${searchHintFontSize}px system-ui, -apple-system, sans-serif`;
+        ctx.fillStyle = '#1e293b';
+        ctx.fillText(topBannerLine3, targetWidth / 2, bannerHeight * 0.82);
+
+        ctx.drawImage(img, 0, bannerHeight, targetWidth, imgHeight);
+
         window.URL.revokeObjectURL(blobUrl);
-        document.body.removeChild(a);
-        alert("کامیابی! تصویر موبائل گیلری میں سیو ہو گئی ہے 🚀");
+
+        canvas.toBlob((finalBlob) => {
+          if (!finalBlob) {
+            window.open(imgUrl, '_blank');
+            return;
+          }
+          const finalUrl = window.URL.createObjectURL(finalBlob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = finalUrl;
+          a.download = `${codeText}_${title.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 24)}.jpg`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(finalUrl);
+          document.body.removeChild(a);
+          alert("کامیابی! تصویر کے اوپر کوڈ اور مکمل گائیڈ کے ساتھ سیو ہو گئی ہے 🚀");
+        }, 'image/jpeg', 0.92);
+
       } catch (error) {
         window.open(imgUrl, '_blank');
       }
     }
 
-    /* Opens Enlarged Single Product View when "Click Review" is pressed */
     function openProductDetailModal(prodKey) {
       if (!cachedData || !cachedData[prodKey]) return;
       const item = cachedData[prodKey];
@@ -815,6 +863,7 @@
 
       const safeTitle = (item.title || '').replace(/'/g, "\\'");
       const safeLink = (item.link || '').replace(/'/g, "\\'");
+      const safeSerial = (serialTag || '').replace(/'/g, "\\'");
 
       document.getElementById('productDetailContent').innerHTML = `
         <button class="close-modal" onclick="closeProductDetailModal()">✕</button>
@@ -830,11 +879,11 @@
         <div class="detail-price">${item.price}</div>
         <div class="btn-action-grid">
           <a href="${item.link}" target="_blank" class="buy-btn">${txt.buy}</a>
-          <button class="download-btn" onclick="downloadImage('${imgList[0]}', '${safeTitle}')">${txt.save}</button>
-          <button class="share-btn ${extraBtnClass}" ${isShareDisabled ? 'disabled' : ''} onclick="shareProduct('${prodKey}', '${safeTitle}', '${safeLink}', '${serialTag}')">
+          <button class="download-btn" onclick="downloadImage(document.getElementById('detailMainImg').src, '${safeTitle}', '${safeSerial}')">${txt.save}</button>
+          <button class="share-btn ${extraBtnClass}" ${isShareDisabled ? 'disabled' : ''} onclick="shareProduct('${prodKey}', '${safeTitle}', '${safeLink}', '${safeSerial}')">
             ${shareBtnText}
           </button>
-          <button class="proof-btn ${extraBtnClass}" ${isProofDisabled ? 'disabled' : ''} onclick="openProofModal('${prodKey}', '${safeTitle}', '${safeLink}', '${serialTag}')">
+          <button class="proof-btn ${extraBtnClass}" ${isProofDisabled ? 'disabled' : ''} onclick="openProofModal('${prodKey}', '${safeTitle}', '${safeLink}', '${safeSerial}')">
             ${proofBtnText}
           </button>
         </div>
@@ -853,7 +902,6 @@
       document.getElementById('productDetailModal').style.display = 'none';
     }
 
-    /* Opens ALL product images (1 to 4) immediately when clicking product image */
     function openProductGalleryModal(prodKey) {
       const container = document.getElementById('zoomAllImagesContainer');
       const titleBar = document.getElementById('zoomGalleryCount');
@@ -958,11 +1006,11 @@
         localStorage.removeItem('pendingTask_Link');
         localStorage.removeItem('pendingTask_Serial');
         
-        proofFiles = { 1: null, 2: null, 3: null, 4: null, 5: null };
-        verifiedStates = { 1: false, 2: false, 3: false, 4: false, 5: false };
-        uploadedUrls = { 1: null, 2: null, 3: null, 4: null, 5: null };
+        proofFiles = { 1: null, 2: null, 3: null, 4: null };
+        verifiedStates = { 1: false, 2: false, 3: false, 4: false };
+        uploadedUrls = { 1: null, 2: null, 3: null, 4: null };
 
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= TOTAL_PLATFORMS; i++) {
           const defaultLabel = i18n[activeLang][`p${i}`];
           document.getElementById(`pTxt${i}`).innerText = defaultLabel;
           document.getElementById(`verifyBtn${i}`).disabled = true;
@@ -1015,41 +1063,64 @@
     }
 
     function detectScreenshotPlatform(vis, scannedText) {
-      const scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      const scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
 
+      // 3. WhatsApp (Group / Channel)
       if (vis.greenBubbleRatio > 0.045) scores[3] += 5;
       if (scannedText.includes("write an update") || scannedText.includes("follower") || scannedText.includes("followers")) scores[3] += 4;
       if (scannedText.includes("message") && (scannedText.includes("today") || scannedText.includes("you") || scannedText.includes("group"))) scores[3] += 4;
       if (scannedText.includes("whatsapp") || scannedText.includes("invite via link") || scannedText.includes("add members")) scores[3] += 4;
 
-      if ((scannedText.includes("seconds ago") || scannedText.includes("minutes ago") || scannedText.includes("hours ago") || scannedText.includes("days ago")) && !scannedText.includes("photo") && !scannedText.includes("just now")) {
-        scores[1] += 4;
-      }
-      if (scannedText.includes("youtube") || scannedText.includes("subscribe") || scannedText.includes("shorts") || scannedText.includes("community")) {
-        scores[1] += 4;
-      }
-      if (vis.hasDarkBottom && vis.greenBubbleRatio < 0.01 && vis.blueRatio < 0.005 && !vis.hasTikTokRightIcons && !scannedText.includes("view insights") && !scannedText.includes("boost post")) {
-        scores[1] += 3;
-      }
+      // 4. TikTok (distinctive top tabs: Following / Friends / For You or right vertical icon column)
+      const isTikTok = (vis.hasTikTokRightIcons && vis.hasDarkBottom) ||
+        scannedText.includes("following") ||
+        scannedText.includes("for you") ||
+        scannedText.includes("friends") ||
+        scannedText.includes("tiktok") ||
+        (scannedText.includes("explore") && scannedText.includes("inbox"));
 
-      if (vis.whiteBgRatio > 0.22 && vis.hasWhiteBottom) scores[2] += 4;
-      if (scannedText.includes("just now") || scannedText.includes("is in ") || scannedText.includes("manage posts") || scannedText.includes("facebook")) scores[2] += 4;
-      if (scannedText.includes("boost") && !scannedText.includes("boost post") && !scannedText.includes("view insights")) scores[2] += 4;
-
-      if (scannedText.includes("view insights") || scannedText.includes("boost post") || scannedText.includes("instagram") || scannedText.includes("get inspired on edits")) {
+      if (isTikTok && vis.greenBubbleRatio < 0.02) {
         scores[4] += 6;
       }
-      if (vis.blueRatio > 0.012 && vis.darkBgRatio > 0.35 && vis.greenBubbleRatio < 0.01) {
-        scores[4] += 4;
+
+      // 2. Facebook (white layout + "just now" / "boost" / "facebook")
+      const isFacebook = !isTikTok && vis.greenBubbleRatio < 0.02 && (
+        scannedText.includes("just now") ||
+        scannedText.includes("is in ") ||
+        scannedText.includes("manage posts") ||
+        scannedText.includes("facebook") ||
+        scannedText.includes("boost") ||
+        (vis.whiteBgRatio > 0.22 && vis.hasWhiteBottom)
+      );
+
+      if (isFacebook) {
+        scores[2] += 5;
       }
 
-      if (vis.hasTikTokRightIcons && vis.hasDarkBottom) scores[5] += 5;
-      if (scannedText.includes("explore") && scannedText.includes("inbox")) scores[5] += 5;
-      if (scannedText.includes("for you") || scannedText.includes("following") || scannedText.includes("tiktok") || scannedText.includes("hide")) scores[5] += 4;
+      // 1. YouTube (Post / Shorts / Community / Channel / Dark bar without TikTok tabs)
+      if (!isTikTok && !isFacebook && vis.greenBubbleRatio < 0.02) {
+        scores[1] += 4;
+        if (
+          scannedText.includes("youtube") ||
+          scannedText.includes("subscribe") ||
+          scannedText.includes("shorts") ||
+          scannedText.includes("community") ||
+          scannedText.includes("post") ||
+          scannedText.includes("seconds ago") ||
+          scannedText.includes("minutes ago") ||
+          scannedText.includes("hours ago") ||
+          scannedText.includes("days ago")
+        ) {
+          scores[1] += 4;
+        }
+        if (vis.hasDarkBottom) {
+          scores[1] += 2;
+        }
+      }
 
       let detectedIndex = 0;
       let maxScore = 0;
-      for (let p = 1; p <= 5; p++) {
+      for (let p = 1; p <= TOTAL_PLATFORMS; p++) {
         if (scores[p] > maxScore) {
           maxScore = scores[p];
           detectedIndex = p;
@@ -1141,7 +1212,7 @@
 
     function checkAllVerificationStatuses() {
       let allVerified = true;
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= TOTAL_PLATFORMS; i++) {
         if (!verifiedStates[i]) {
           allVerified = false;
           break;
@@ -1158,9 +1229,9 @@
       }
     }
 
-    async function submit5ShareProofs() {
-      for(let i=1; i<=5; i++) {
-        if (!verifiedStates[i] || !uploadedUrls[i]) { alert(`Verify Screenshot #${i}! All 5 are mandatory.`); return; }
+    async function submit4ShareProofs() {
+      for(let i=1; i<=TOTAL_PLATFORMS; i++) {
+        if (!verifiedStates[i] || !uploadedUrls[i]) { alert(`Verify Screenshot #${i}! All 4 are mandatory.`); return; }
       }
 
       const loader = document.getElementById('proofLoader');
@@ -1190,11 +1261,11 @@
           localStorage.removeItem('pendingTask_Link');
           localStorage.removeItem('pendingTask_Serial');
           
-          alert("Success! 5 Platform screenshots submitted. Earn 25 PKR upon admin approval! 🚀");
+          alert("Success! 4 Platform screenshots submitted. Earn 25 PKR upon admin approval! 🚀");
           
-          proofFiles = { 1: null, 2: null, 3: null, 4: null, 5: null };
-          verifiedStates = { 1: false, 2: false, 3: false, 4: false, 5: false };
-          uploadedUrls = { 1: null, 2: null, 3: null, 4: null, 5: null };
+          proofFiles = { 1: null, 2: null, 3: null, 4: null };
+          verifiedStates = { 1: false, 2: false, 3: false, 4: false };
+          uploadedUrls = { 1: null, 2: null, 3: null, 4: null };
           
           closeProofModal();
           closeProductDetailModal();
@@ -1383,7 +1454,7 @@
       document.getElementById('modalProofTitle').innerText = txt.modalTitle;
       document.getElementById('modalProofSub').innerText = txt.modalSub;
       
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= TOTAL_PLATFORMS; i++) {
         const textKey = `p${i}`;
         if (!proofFiles[i]) {
           document.getElementById(`pTxt${i}`).innerText = txt[textKey];
