@@ -10,8 +10,8 @@
     .container { max-width: 520px; margin: 20px auto; padding: 16px; }
     .card { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
     h1, h2, h3 { margin-top: 0; color: #0b5ed7; }
-    .row { display: flex; gap: 10px; }
-    input, select, button { width: 100%; padding: 11px 12px; margin: 6px 0; border-radius: 9px; border: 1px solid #cbd5e1; font-size: 15px; }
+    input, button, label { width: 100%; margin: 6px 0; border-radius: 9px; font-size: 15px; }
+    input, button { padding: 11px 12px; border: 1px solid #cbd5e1; }
     button { background: #0b5ed7; color: #fff; border: none; font-weight: 600; cursor: pointer; }
     button:hover { background: #094bb0; }
     button.secondary { background: #475569; }
@@ -27,6 +27,7 @@
     .hist-item { border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 14px; }
     .hist-item:last-child { border-bottom: none; }
     .hidden { display: none; }
+    .preview-img { max-width: 100%; max-height: 180px; border-radius: 8px; margin-top: 8px; display: none; border: 1px solid #cbd5e1; }
   </style>
 </head>
 <body>
@@ -80,14 +81,15 @@
 
       <!-- DISPENSE WATER -->
       <div class="card">
-        <h3>پانی حاصل کریں (کسی بھی مشین سے)</h3>
-        <label>مشین منتخب کریں یا کوڈ لکھیں:</label>
-        <select id="machineSelect" onchange="updateEstimate()">
-          <option value="">-- مشین لوڈ ہو رہی ہے --</option>
-        </select>
-        <input type="text" id="manualMachineId" placeholder="یا مشین ID لکھیں (مثلاً M01)" oninput="updateEstimate()" />
-        <input type="number" id="litersInput" min="1" step="0.5" placeholder="کتنے لیٹر پانی چاہیے؟ (مثلاً 5)" oninput="updateEstimate()" />
-        <p id="estimateText" style="margin:6px 0;font-weight:600;color:#0b5ed7;">رقم کا حساب: Rs. 0</p>
+        <h3>پانی حاصل کریں</h3>
+        <input type="text" id="machineNumberInput" placeholder="مشین نمبر لکھیں (مثلاً M01)" oninput="updateEstimate()" />
+        <input type="number" id="litersInput" min="0.5" step="0.5" placeholder="کتنے لیٹر پانی چاہیے؟ (مثلاً 10)" oninput="onLitersChange()" />
+
+        <div id="dispensePassBox" class="hidden">
+          <input type="password" id="dispensePassInput" placeholder="اپنا لاگ ان پاسورڈ لکھیں" />
+        </div>
+
+        <p id="estimateText" style="margin:8px 0;font-weight:700;color:#0b5ed7;">ریٹ: Rs. 5/لیٹر | کل رقم: Rs. 0.00</p>
         <button class="success" onclick="requestWater()">پانی شروع کریں</button>
       </div>
 
@@ -95,7 +97,10 @@
       <div class="card">
         <h3>ایڈمن کو بیلنس کی درخواست بھیجیں</h3>
         <input type="number" id="reqAmount" min="10" placeholder="کتنے روپے بیلنس چاہیے؟" />
-        <input type="text" id="reqTrx" placeholder="ادائیگی کی ٹرانزیکشن ID یا نوٹ (اختیاری)" />
+        <input type="text" id="reqTrx" placeholder="ادائیگی کی ٹرانزیکشن ID یا نوٹ" />
+        <label style="display:block;font-size:14px;color:#334155;">ادائیگی کا اسکرین شاٹ (اختیاری):</label>
+        <input type="file" id="reqScreenshot" accept="image/*" onchange="previewScreenshot()" />
+        <img id="screenshotPreview" class="preview-img" alt="اسکرین شاٹ پریویو" />
         <button onclick="sendBalanceRequest()">درخواست بھیجیں</button>
       </div>
 
@@ -110,7 +115,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
-      getFirestore, doc, getDoc, setDoc, updateDoc, addDoc,
+      getFirestore, doc, getDoc, setDoc, addDoc,
       collection, query, where, onSnapshot, serverTimestamp, runTransaction
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -131,6 +136,7 @@
     let machinesMap = {};
     let unsubUser = null;
     let unsubOrders = null;
+    let screenshotBase64 = "";
 
     function showAlert(text, type = "err") {
       const box = document.getElementById("alertBox");
@@ -184,16 +190,15 @@
       const salt = crypto.randomUUID();
       const passwordHash = await hashPassword(pass, salt);
 
-      const userData = {
+      await setDoc(userRef, {
         name,
         phone,
         salt,
         passwordHash,
         balance: 0,
         createdAt: serverTimestamp()
-      };
+      });
 
-      await setDoc(userRef, userData);
       showAlert("اکاؤنٹ کامیابی سے بن گیا! اب لاگ ان کریں۔", "ok");
       switchTab("login");
     };
@@ -260,27 +265,27 @@
     function loadMachines() {
       onSnapshot(collection(db, "machines"), (qs) => {
         machinesMap = {};
-        const sel = document.getElementById("machineSelect");
-        sel.innerHTML = `<option value="">-- مشین منتخب کریں --</option>`;
         qs.forEach(d => {
-          const m = { id: d.id, ...d.data() };
-          machinesMap[m.id] = m;
-          const opt = document.createElement("option");
-          opt.value = m.id;
-          opt.textContent = `${m.id} - ${m.location || "مشین"} (Rs. ${m.pricePerLiter || 5}/L)`;
-          sel.appendChild(opt);
+          machinesMap[d.id.toUpperCase()] = { id: d.id, ...d.data() };
         });
         updateEstimate();
       });
     }
 
-    function getSelectedMachineId() {
-      const manual = document.getElementById("manualMachineId").value.trim().toUpperCase();
-      return manual || document.getElementById("machineSelect").value;
-    }
+    window.onLitersChange = function() {
+      const liters = parseFloat(document.getElementById("litersInput").value) || 0;
+      const passBox = document.getElementById("dispensePassBox");
+      if (liters > 0) {
+        passBox.classList.remove("hidden");
+      } else {
+        passBox.classList.add("hidden");
+        document.getElementById("dispensePassInput").value = "";
+      }
+      updateEstimate();
+    };
 
     window.updateEstimate = function() {
-      const mId = getSelectedMachineId();
+      const mId = document.getElementById("machineNumberInput").value.trim().toUpperCase();
       const liters = parseFloat(document.getElementById("litersInput").value) || 0;
       const rate = machinesMap[mId]?.pricePerLiter ?? 5;
       const total = liters * rate;
@@ -290,10 +295,18 @@
 
     window.requestWater = async function() {
       if (!currentUser) return;
-      const mId = getSelectedMachineId();
+      const mId = document.getElementById("machineNumberInput").value.trim().toUpperCase();
       const liters = parseFloat(document.getElementById("litersInput").value);
-      if (!mId) return showAlert("براہِ کرم مشین منتخب کریں یا مشین ID لکھیں۔");
+      const enteredPass = document.getElementById("dispensePassInput").value;
+
+      if (!mId) return showAlert("براہِ کرم مشین نمبر لکھیں۔");
       if (!liters || liters <= 0) return showAlert("براہِ کرم درست مقدار میں لیٹر لکھیں۔");
+      if (!enteredPass) return showAlert("پانی حاصل کرنے کے لیے اپنا لاگ ان پاسورڈ لکھیں۔");
+
+      const verifyHash = await hashPassword(enteredPass, currentUser.salt || "");
+      if (verifyHash !== currentUser.passwordHash) {
+        return showAlert("پاسورڈ درست نہیں ہے! وہی پاسورڈ لگائیں جو لاگ ان کرتے وقت استعمال کیا گیا تھا۔");
+      }
 
       const rate = machinesMap[mId]?.pricePerLiter ?? 5;
       const cost = Number((liters * rate).toFixed(2));
@@ -323,11 +336,30 @@
         });
 
         document.getElementById("litersInput").value = "";
+        document.getElementById("dispensePassInput").value = "";
+        document.getElementById("dispensePassBox").classList.add("hidden");
         updateEstimate();
-        showAlert(`آرڈر بھیج دیا گیا! ${liters} لیٹر پانی کے لیے Rs. ${cost} منہا ہو گئے۔`, "ok");
+        showAlert(`پاسورڈ کی تصدیق ہو گئی! مشین ${mId} کے لیے ${liters} لیٹر پانی (Rs. ${cost}) کا آرڈر بھیج دیا گیا ہے۔`, "ok");
       } catch (err) {
         showAlert(err.message || "آرڈر بھیجنے میں مسئلہ پیش آیا۔");
       }
+    };
+
+    window.previewScreenshot = function() {
+      const file = document.getElementById("reqScreenshot").files[0];
+      const img = document.getElementById("screenshotPreview");
+      screenshotBase64 = "";
+      if (!file) {
+        img.style.display = "none";
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        screenshotBase64 = reader.result;
+        img.src = screenshotBase64;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
     };
 
     window.sendBalanceRequest = async function() {
@@ -341,13 +373,17 @@
         userName: currentUser.name,
         amount,
         trxId,
+        screenshot: screenshotBase64 || null,
         status: "pending",
         createdAt: serverTimestamp()
       });
 
       document.getElementById("reqAmount").value = "";
       document.getElementById("reqTrx").value = "";
-      showAlert("بیلنس کی درخواست ایڈمن کو بھیج دی گئی ہے۔ منظوری کے بعد بیلنس اپڈیٹ ہو جائے گا۔", "ok");
+      document.getElementById("reqScreenshot").value = "";
+      document.getElementById("screenshotPreview").style.display = "none";
+      screenshotBase64 = "";
+      showAlert("بیلنس کی درخواست، ٹرانزیکشن تفصیل اور اسکرین شاٹ ایڈمن کو بھیج دی گئی ہے۔", "ok");
     };
 
     function renderHistory(rows) {
