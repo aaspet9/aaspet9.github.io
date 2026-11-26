@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سمارٹ واٹر اے ٹی ایم</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: #eef4f8; color: #162433; }
+    .container { max-width: 520px; margin: 20px auto; padding: 16px; }
+    .card { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    h1, h2, h3 { margin-top: 0; color: #0b5ed7; }
+    .row { display: flex; gap: 10px; }
+    input, select, button { width: 100%; padding: 11px 12px; margin: 6px 0; border-radius: 9px; border: 1px solid #cbd5e1; font-size: 15px; }
+    button { background: #0b5ed7; color: #fff; border: none; font-weight: 600; cursor: pointer; }
+    button:hover { background: #094bb0; }
+    button.secondary { background: #475569; }
+    button.success { background: #15803d; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+    .tabs button { background: #e2e8f0; color: #1e293b; }
+    .tabs button.active { background: #0b5ed7; color: #fff; }
+    .balance-box { background: linear-gradient(135deg, #0b5ed7, #0284c7); color: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .balance-val { font-size: 28px; font-weight: 700; margin-top: 4px; }
+    .msg { padding: 10px; border-radius: 8px; margin: 8px 0; font-size: 14px; display: none; }
+    .msg.err { display: block; background: #fee2e2; color: #991b1b; }
+    .msg.ok { display: block; background: #dcfce7; color: #166534; }
+    .hist-item { border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 14px; }
+    .hist-item:last-child { border-bottom: none; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" style="text-align:center;">
+      <h1>💧 سمارٹ واٹر اے ٹی ایم</h1>
+      <p style="margin:0;color:#475569;">کسی بھی مشین سے پانی لیں — محفوظ اکاؤنٹ اور لائیو بیلنس</p>
+    </div>
+
+    <div id="alertBox" class="msg"></div>
+
+    <!-- AUTH SECTION -->
+    <div id="authSection" class="card">
+      <div class="tabs">
+        <button id="tabLogin" class="active" onclick="switchTab('login')">لاگ ان</button>
+        <button id="tabSignup" onclick="switchTab('signup')">نیا اکاؤنٹ</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginForm">
+        <h3>لاگ ان کریں</h3>
+        <input type="tel" id="loginPhone" placeholder="موبائل نمبر (مثلاً 03001234567)" />
+        <input type="password" id="loginPass" placeholder="پاسورڈ" />
+        <button onclick="loginUser()">لاگ ان</button>
+      </div>
+
+      <!-- SIGNUP -->
+      <div id="signupForm" class="hidden">
+        <h3>نیا صارف رجسٹر کریں</h3>
+        <input type="text" id="regName" placeholder="پورا نام (لازمی)" />
+        <input type="tel" id="regPhone" placeholder="موبائل نمبر (لازمی، مثلاً 03001234567)" />
+        <input type="password" id="regPass" placeholder="مضبوط پاسورڈ بنائیں" />
+        <input type="password" id="regPass2" placeholder="پاسورڈ دوبارہ لکھیں" />
+        <small style="color:#475569;display:block;margin-bottom:6px;">
+          پاسورڈ کم از کم 8 حروف کا ہو جس میں بڑا حرف، چھوٹا حرف، عدد اور علامت (!@#$) شامل ہو۔
+        </small>
+        <button class="success" onclick="signupUser()">اکاؤنٹ بنائیں</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD SECTION -->
+    <div id="dashSection" class="hidden">
+      <div class="card">
+        <div class="balance-box">
+          <div>خوش آمدید، <strong id="uName"></strong> (<span id="uPhone"></span>)</div>
+          <div style="margin-top:8px;font-size:14px;opacity:0.9;">موجودہ بقایا بیلنس</div>
+          <div class="balance-val">Rs. <span id="uBalance">0</span></div>
+        </div>
+        <button class="secondary" onclick="logoutUser()">لاگ آؤٹ</button>
+      </div>
+
+      <!-- DISPENSE WATER -->
+      <div class="card">
+        <h3>پانی حاصل کریں (کسی بھی مشین سے)</h3>
+        <label>مشین منتخب کریں یا کوڈ لکھیں:</label>
+        <select id="machineSelect" onchange="updateEstimate()">
+          <option value="">-- مشین لوڈ ہو رہی ہے --</option>
+        </select>
+        <input type="text" id="manualMachineId" placeholder="یا مشین ID لکھیں (مثلاً M01)" oninput="updateEstimate()" />
+        <input type="number" id="litersInput" min="1" step="0.5" placeholder="کتنے لیٹر پانی چاہیے؟ (مثلاً 5)" oninput="updateEstimate()" />
+        <p id="estimateText" style="margin:6px 0;font-weight:600;color:#0b5ed7;">رقم کا حساب: Rs. 0</p>
+        <button class="success" onclick="requestWater()">پانی شروع کریں</button>
+      </div>
+
+      <!-- REQUEST BALANCE -->
+      <div class="card">
+        <h3>ایڈمن کو بیلنس کی درخواست بھیجیں</h3>
+        <input type="number" id="reqAmount" min="10" placeholder="کتنے روپے بیلنس چاہیے؟" />
+        <input type="text" id="reqTrx" placeholder="ادائیگی کی ٹرانزیکشن ID یا نوٹ (اختیاری)" />
+        <button onclick="sendBalanceRequest()">درخواست بھیجیں</button>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="card">
+        <h3>پانی لینے کی تفصیل اور بقایا بیلنس</h3>
+        <div id="historyList">کوئی ریکارڈ موجود نہیں۔</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, addDoc,
+      collection, query, where, onSnapshot, serverTimestamp, runTransaction
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDp--gVk61VaLCK-4yygwN8Oj9CpDIp05E",
+      authDomain: "kist-65357.firebaseapp.com",
+      projectId: "kist-65357",
+      storageBucket: "kist-65357.firebasestorage.app",
+      messagingSenderId: "200844711272",
+      appId: "1:200844711272:web:d980a03c9fae8b8d7972dd",
+      measurementId: "G-LCZ8N3GKTE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let machinesMap = {};
+    let unsubUser = null;
+    let unsubOrders = null;
+
+    function showAlert(text, type = "err") {
+      const box = document.getElementById("alertBox");
+      box.className = `msg ${type}`;
+      box.textContent = text;
+    }
+
+    function normalizePhone(raw) {
+      return (raw || "").replace(/\D/g, "");
+    }
+
+    function isStrongPassword(pass) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(pass);
+    }
+
+    async function hashPassword(password, salt) {
+      const enc = new TextEncoder().encode(`${salt}:${password}`);
+      const buf = await crypto.subtle.digest("SHA-256", enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    window.switchTab = function(tab) {
+      document.getElementById("tabLogin").classList.toggle("active", tab === "login");
+      document.getElementById("tabSignup").classList.toggle("active", tab === "signup");
+      document.getElementById("loginForm").classList.toggle("hidden", tab !== "login");
+      document.getElementById("signupForm").classList.toggle("hidden", tab !== "signup");
+    };
+
+    window.signupUser = async function() {
+      const name = document.getElementById("regName").value.trim();
+      const phone = normalizePhone(document.getElementById("regPhone").value);
+      const pass = document.getElementById("regPass").value;
+      const pass2 = document.getElementById("regPass2").value;
+
+      if (!name || phone.length < 10) {
+        return showAlert("براہِ کرم مکمل نام اور درست موبائل نمبر لکھیں۔");
+      }
+      if (!isStrongPassword(pass)) {
+        return showAlert("پاسورڈ کمزور ہے! کم از کم 8 حروف، بڑا حرف، چھوٹا حرف، عدد اور خاص علامت لازمی ہے۔");
+      }
+      if (pass !== pass2) {
+        return showAlert("دونوں پاسورڈ آپس میں میل نہیں کھاتے۔");
+      }
+
+      const userRef = doc(db, "users", phone);
+      const snap = await getDoc(userRef);
+      if (snap.exists()) {
+        return showAlert("اس موبائل نمبر پر پہلے ہی اکاؤنٹ موجود ہے۔");
+      }
+
+      const salt = crypto.randomUUID();
+      const passwordHash = await hashPassword(pass, salt);
+
+      const userData = {
+        name,
+        phone,
+        salt,
+        passwordHash,
+        balance: 0,
+        createdAt: serverTimestamp()
+      };
+
+      await setDoc(userRef, userData);
+      showAlert("اکاؤنٹ کامیابی سے بن گیا! اب لاگ ان کریں۔", "ok");
+      switchTab("login");
+    };
+
+    window.loginUser = async function() {
+      const phone = normalizePhone(document.getElementById("loginPhone").value);
+      const pass = document.getElementById("loginPass").value;
+
+      if (!phone || !pass) {
+        return showAlert("موبائل نمبر اور پاسورڈ دونوں لازمی ہیں۔");
+      }
+
+      const userRef = doc(db, "users", phone);
+      const snap = await getDoc(userRef);
+      if (!snap.exists()) {
+        return showAlert("یہ موبائل نمبر رجسٹرڈ نہیں ہے۔");
+      }
+
+      const data = snap.data();
+      const checkHash = await hashPassword(pass, data.salt || "");
+      if (checkHash !== data.passwordHash) {
+        return showAlert("غلط پاسورڈ! براہِ کرم اپنا درست پاسورڈ لکھیں۔");
+      }
+
+      currentUser = { id: snap.id, ...data };
+      sessionStorage.setItem("water_atm_user", phone);
+      openDashboard(phone);
+    };
+
+    function openDashboard(phone) {
+      document.getElementById("authSection").classList.add("hidden");
+      document.getElementById("dashSection").classList.remove("hidden");
+      loadMachines();
+
+      if (unsubUser) unsubUser();
+      unsubUser = onSnapshot(doc(db, "users", phone), (snap) => {
+        if (snap.exists()) {
+          currentUser = { id: snap.id, ...snap.data() };
+          document.getElementById("uName").textContent = currentUser.name;
+          document.getElementById("uPhone").textContent = currentUser.phone;
+          document.getElementById("uBalance").textContent = Number(currentUser.balance || 0).toFixed(2);
+        }
+      });
+
+      if (unsubOrders) unsubOrders();
+      const q = query(collection(db, "dispenseOrders"), where("userPhone", "==", phone));
+      unsubOrders = onSnapshot(q, (qs) => {
+        const rows = [];
+        qs.forEach(d => rows.push({ id: d.id, ...d.data() }));
+        rows.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+        renderHistory(rows);
+      });
+    }
+
+    window.logoutUser = function() {
+      if (unsubUser) unsubUser();
+      if (unsubOrders) unsubOrders();
+      currentUser = null;
+      sessionStorage.removeItem("water_atm_user");
+      document.getElementById("dashSection").classList.add("hidden");
+      document.getElementById("authSection").classList.remove("hidden");
+    };
+
+    function loadMachines() {
+      onSnapshot(collection(db, "machines"), (qs) => {
+        machinesMap = {};
+        const sel = document.getElementById("machineSelect");
+        sel.innerHTML = `<option value="">-- مشین منتخب کریں --</option>`;
+        qs.forEach(d => {
+          const m = { id: d.id, ...d.data() };
+          machinesMap[m.id] = m;
+          const opt = document.createElement("option");
+          opt.value = m.id;
+          opt.textContent = `${m.id} - ${m.location || "مشین"} (Rs. ${m.pricePerLiter || 5}/L)`;
+          sel.appendChild(opt);
+        });
+        updateEstimate();
+      });
+    }
+
+    function getSelectedMachineId() {
+      const manual = document.getElementById("manualMachineId").value.trim().toUpperCase();
+      return manual || document.getElementById("machineSelect").value;
+    }
+
+    window.updateEstimate = function() {
+      const mId = getSelectedMachineId();
+      const liters = parseFloat(document.getElementById("litersInput").value) || 0;
+      const rate = machinesMap[mId]?.pricePerLiter ?? 5;
+      const total = liters * rate;
+      document.getElementById("estimateText").textContent =
+        `ریٹ: Rs. ${rate}/لیٹر | کل رقم: Rs. ${total.toFixed(2)}`;
+    };
+
+    window.requestWater = async function() {
+      if (!currentUser) return;
+      const mId = getSelectedMachineId();
+      const liters = parseFloat(document.getElementById("litersInput").value);
+      if (!mId) return showAlert("براہِ کرم مشین منتخب کریں یا مشین ID لکھیں۔");
+      if (!liters || liters <= 0) return showAlert("براہِ کرم درست مقدار میں لیٹر لکھیں۔");
+
+      const rate = machinesMap[mId]?.pricePerLiter ?? 5;
+      const cost = Number((liters * rate).toFixed(2));
+
+      try {
+        await runTransaction(db, async (tx) => {
+          const uRef = doc(db, "users", currentUser.phone);
+          const uSnap = await tx.get(uRef);
+          if (!uSnap.exists()) throw new Error("صارف کا ریکارڈ نہیں ملا۔");
+          const bal = Number(uSnap.data().balance || 0);
+          if (bal < cost) throw new Error("آپ کا بیلنس ناکافی ہے۔ پہلے بیلنس کی درخواست بھیجیں۔");
+
+          const newBal = Number((bal - cost).toFixed(2));
+          tx.update(uRef, { balance: newBal });
+
+          const orderRef = doc(collection(db, "dispenseOrders"));
+          tx.set(orderRef, {
+            userPhone: currentUser.phone,
+            userName: currentUser.name,
+            machineId: mId,
+            liters,
+            cost,
+            remainingBalance: newBal,
+            status: "pending",
+            createdAt: serverTimestamp()
+          });
+        });
+
+        document.getElementById("litersInput").value = "";
+        updateEstimate();
+        showAlert(`آرڈر بھیج دیا گیا! ${liters} لیٹر پانی کے لیے Rs. ${cost} منہا ہو گئے۔`, "ok");
+      } catch (err) {
+        showAlert(err.message || "آرڈر بھیجنے میں مسئلہ پیش آیا۔");
+      }
+    };
+
+    window.sendBalanceRequest = async function() {
+      if (!currentUser) return;
+      const amount = parseFloat(document.getElementById("reqAmount").value);
+      const trxId = document.getElementById("reqTrx").value.trim();
+      if (!amount || amount <= 0) return showAlert("درست رقم لکھیں۔");
+
+      await addDoc(collection(db, "balanceRequests"), {
+        userPhone: currentUser.phone,
+        userName: currentUser.name,
+        amount,
+        trxId,
+        status: "pending",
+        createdAt: serverTimestamp()
+      });
+
+      document.getElementById("reqAmount").value = "";
+      document.getElementById("reqTrx").value = "";
+      showAlert("بیلنس کی درخواست ایڈمن کو بھیج دی گئی ہے۔ منظوری کے بعد بیلنس اپڈیٹ ہو جائے گا۔", "ok");
+    };
+
+    function renderHistory(rows) {
+      const box = document.getElementById("historyList");
+      if (!rows.length) {
+        box.innerHTML = "کوئی ریکارڈ موجود نہیں۔";
+        return;
+      }
+      box.innerHTML = rows.map(r => `
+        <div class="hist-item">
+          <div><strong>مشین:</strong> ${r.machineId} | <strong>مقدار:</strong> ${r.liters} لیٹر</div>
+          <div><strong>رقم:</strong> Rs. ${r.cost} | <strong>بقایا بیلنس:</strong> Rs. ${Number(r.remainingBalance ?? 0).toFixed(2)}</div>
+          <div style="color:#475569;font-size:12px;">اسٹیٹس: ${r.status}</div>
+        </div>
+      `).join("");
+    }
+
+    const savedPhone = sessionStorage.getItem("water_atm_user");
+    if (savedPhone) openDashboard(savedPhone);
+  </script>
+</body>
+</html>
